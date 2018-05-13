@@ -15,14 +15,14 @@ os.system("tar -xvf peda.tar.gz -C /usr/share/")
 open('/root/.pwntools-cache/update', 'wb').write('never')
 
 setup(
-    name="emulator",
+    name="symbolfuzz",
     version="1.0",
     author="bluecake",
     author_email="bluekezhou@qq.com",
-    description=("An emulator tool for linux x86(32bit and 64bit) program"),
+    description=("A symbolic execution fuzz tool for linux x86 program"),
     license="BSD",
-    keywords="triton emulator",
-    url="https://github.com/Bluekezhou/TritonEmulator",
+    keywords="fuzzer",
+    url="https://github.com/Bluekezhou/SymbolFuzz",
     packages=find_packages("src"),
     package_dir = { "":"src" },
     package_data = { "": ["type"] },

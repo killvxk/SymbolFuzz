@@ -1,0 +1,965 @@
+[*] Fuzzer load_state called
+[*] Guesser load_state called
+[*] InputSolver load_state called
+[*] current seeds has 1 items
+[*] random seed index is 0
+[*] seed count is 1
+[*] try seed: '', level is 0
+[*] base_seed is ''
+[*] [3] Get new seed 'AAAAAAAA'
+[*] [2] add_seed, new seed is 'AAAAAAAA'
+[*] [5] Get new seed 'AAAAAAAAAAAAAAAA'
+[*] Guesser save_state called
+[*] InputSolver save_state called
+[*] current seeds has 2 items
+[*] random seed index is 0
+[*] seed count is 2
+[*] try seed: 'AAAAAAAA', level is 1
+[*] base_seed is ''
+[*] [1] Detect constant branch at 0x806e21e with state 5161710400860122414
+[*] [1] Detect constant branch at 0x8059e96 with state 6572943574235269258
+[*] [1] Detect constant branch at 0x8059ea9 with state 395797868462985439
+[*] [1] Detect constant branch at 0x8059f18 with state 200970924923402297
+[*] [1] Detect constant branch at 0x8059f28 with state -9756650497278893
+[*] [1] Detect constant branch at 0x8059f34 with state 7979952059269139061
+[*] [1] Detect constant branch at 0x8058210 with state 2624972202689288907
+[*] [1] Detect constant branch at 0x8058237 with state -5016667671630540770
+[*] [1] Detect constant branch at 0x80582a1 with state 621020849400743667
+[*] [1] Detect constant branch at 0x80582ac with state 5460841265783635945
+[*] [1] Detect constant branch at 0x8058329 with state 4242437948677092058
+[*] [1] Detect constant branch at 0x80583e9 with state -7283005516137746723
+[*] [1] Detect constant branch at 0x80583f8 with state -2903228860444664395
+[*] [1] Detect constant branch at 0x8058404 with state 3259900598280372757
+[*] [1] Detect constant branch at 0x8058411 with state 4480513743944746176
+[*] [1] Detect constant branch at 0x8058580 with state 1279947277940568868
+[*] [1] Detect constant branch at 0x805841b with state -2194152679698759749
+[*] [1] Detect constant branch at 0x805842f with state 2548165185328049280
+[*] [1] Detect constant branch at 0x80583a0 with state -8678109655106784260
+[*] [1] Detect constant branch at 0x80583dc with state 6287426716794239346
+[*] [1] Detect constant branch at 0x8058661 with state 5426023224333136181
+[*] [1] Detect constant branch at 0x805866f with state -5070286354962401028
+[*] [1] Detect constant branch at 0x80586df with state -8359789569669328319
+[*] [1] Detect constant branch at 0x80586d0 with state 5227189158782924013
+[*] [1] Detect constant branch at 0x80586df with state -1113599933224113476
+[*] [1] Detect constant branch at 0x80586d0 with state 2168016915967609334
+[*] [1] Detect constant branch at 0x80586df with state 2373908174310204245
+[*] [1] Detect constant branch at 0x80586e7 with state 3264335762749280892
+[*] [1] Detect constant branch at 0x8058ae0 with state -5742583371730378678
+[*] [1] Detect constant branch at 0x80584a6 with state 1860294098227276576
+[*] [1] Detect constant branch at 0x8059ecf with state -6577633554626185651
+[*] [1] Detect constant branch at 0x8059eda with state -2881465236968739421
+[*] [1] Detect constant branch at 0x8059ee6 with state -8174304460635771503
+[*] [1] Detect constant branch at 0x8059eee with state 6682337504890222983
+[*] [1] Detect constant branch at 0x8059ef5 with state -5189263503135692834
+[*] [1] Detect constant branch at 0x8059f08 with state 5669858393024231646
+[*] [1] Detect constant branch at 0x8059f0c with state -5736690599731589168
+[*] [1] Detect constant branch at 0x8048d85 with state -6089750991327722617
+[*] [1] Detect constant branch at 0x8048d85 with state 5809054173061094610
+[*] [1] Detect constant branch at 0x8048d85 with state -5538275559502729033
+[*] [1] Detect constant branch at 0x8048d85 with state -7672165179885264970
+[*] [1] Detect constant branch at 0x8048d85 with state 5524240039726701121
+[*] [1] Detect constant branch at 0x8048d85 with state 3680582183331411632
+[*] [1] Detect constant branch at 0x8048d85 with state 5003578038647720137
+[*] [1] Detect constant branch at 0x8048d85 with state 1545133670520322884
+[*] [1] Detect constant branch at 0x8048e50 with state -7740878399353827820
+[*] [1] Detect constant branch at 0x805a3b0 with state 2111243443040023974
+[*] [1] Detect constant branch at 0x805a3b4 with state -2101137685787381734
+[*] [1] Detect constant branch at 0x805a3bf with state 8056846452125728441
+[*] [1] Detect constant branch at 0x805a3d2 with state 7484356825066222665
+[*] [1] Detect constant branch at 0x8056e03 with state -4419997866173334696
+[*] [1] Detect constant branch at 0x8056e0c with state -5568757361865320230
+[*] [1] Detect constant branch at 0x8056e1d with state 2588194734375387045
+[*] [1] Detect constant branch at 0x8056ef0 with state 2412021950222311153
+[*] [1] Detect constant branch at 0x8056ef8 with state 8221634040321841233
+[*] [1] Detect constant branch at 0x8057220 with state 3866911059514270421
+[*] [1] Detect constant branch at 0x8057230 with state 3708761690979200141
+[*] [1] Detect constant branch at 0x805723e with state -6650802579516964869
+[*] [1] Detect constant branch at 0x805724c with state 2665709172608995755
+[*] [1] Detect constant branch at 0x80575c0 with state 7929160396121813871
+[*] [1] Detect constant branch at 0x8056f24 with state 2048102250282262815
+[*] [1] Detect constant branch at 0x8056f2f with state -8382185193608081610
+[*] [1] Detect constant branch at 0x8056f41 with state -7681607496232324407
+[*] [1] Detect constant branch at 0x8056f4d with state -2660338258813444424
+[*] [1] Detect constant branch at 0x8056f5a with state -1015192279245929774
+[*] [1] Detect constant branch at 0x8056faa with state -4165088855068555674
+[*] [1] Detect constant branch at 0x80575a8 with state 7455182360159290790
+[*] [1] Detect constant branch at 0x8057052 with state -3182709605271751526
+[*] [1] Detect constant branch at 0x80575f0 with state 4226310619492804418
+[*] [1] Detect constant branch at 0x805683e with state -4906863845116583510
+[*] [1] Detect constant branch at 0x8056854 with state -7336842636089494650
+[*] [1] Detect constant branch at 0x805691d with state -3585984435796606583
+[*] [1] Detect constant branch at 0x8056990 with state 4717137953425094277
+[*] [1] Detect constant branch at 0x8056999 with state -7130280118427951034
+[*] [1] Detect constant branch at 0x80569a4 with state -7198102259688917400
+[*] [1] Detect constant branch at 0x80568fb with state 3735113772231549419
+[*] [1] Detect constant branch at 0x80569d0 with state -1187529714179326879
+[*] [1] Detect constant branch at 0x8056870 with state -6570120637664500449
+[*] [1] Detect constant branch at 0x8056882 with state 3787905846648708051
+[*] [1] Detect constant branch at 0x8056870 with state 8410624753152891193
+[*] [1] Detect constant branch at 0x8056882 with state 3722693939781611585
+[*] [1] Detect constant branch at 0x8056870 with state -340676074391207397
+[*] [1] Detect constant branch at 0x8056882 with state 6962167746067363939
+[*] [1] Detect constant branch at 0x8056870 with state -2431200698889370939
+[*] [1] Detect constant branch at 0x8056882 with state -1779935673394130335
+[*] [1] Detect constant branch at 0x8056870 with state -5078900480852025241
+[*] [1] Detect constant branch at 0x8056882 with state -3940861046032762701
+[*] [1] Detect constant branch at 0x8056870 with state -2407699125540369407
+[*] [1] Detect constant branch at 0x8056882 with state -8821086816734727487
+[*] [1] Detect constant branch at 0x8056870 with state -2107742558518176797
+[*] [1] Detect constant branch at 0x8056882 with state 2734084849190697795
+[*] [1] Detect constant branch at 0x8056870 with state 2913331854443182029
+[*] [1] Detect constant branch at 0x8056882 with state -4381008394829078111
+[*] [1] Detect constant branch at 0x8056870 with state 5098465690330564399
+[*] [1] Detect constant branch at 0x8056882 with state 83974658385320403
+[*] [1] Detect constant branch at 0x80569e6 with state -3468939160479502209
+[*] [1] Detect constant branch at 0x8057659 with state -7885200570602020962
+[*] [1] Detect constant branch at 0x8057670 with state -9125937775501361286
+[*] [1] Detect constant branch at 0x8056d46 with state -5245131916271547414
+[*] [1] Detect constant branch at 0x8056d54 with state -5552934320877617486
+[*] [1] Detect constant branch at 0x805732c with state 814861843739885760
+[*] [1] Detect constant branch at 0x8057338 with state -1097111696750785668
+[*] [1] Detect constant branch at 0x8057343 with state -4143187659433852523
+[*] [1] Detect constant branch at 0x8057351 with state 3344508841585826700
+[*] [0x804df40] function check passed with sample ['1000\x00']
+[*] [0x804df40] function check passed with sample ['  234\x00']
+[*] [0x804df40] function check passed with sample ['ABC234\x00']
+[*] [0x804df40] function check passed with sample ['-1\x00']
+[*] [0x8048967] atoi arg is '\xeb\xec\x8eP\xe9s \xcf'
+[*] [32mStart symbolizing atoi result register eax[0m
+[*] good atoi result is [2L, 3L, 1L]
+[*] fuzz atoi ['7957AAAA', '2AAAAAAA', '12155518', '3AAAAAAA', '65AAAAAA', '219AAAAA', '98893AAA', '1AAAAAAA', '358066AA', '2019146A', '21906502', '-8544456']
+[*] traceMemory is (4287380631, 4287380632, 4287380633, 4287380634, 4287380635, 4287380636, 4287380637, 4287380638)
+[*] src is [0, 1, 2, 3, 4, 5, 6, 7]
+[*] symbolize_list is [0, 1, 2, 3, 4, 5, 6, 7]
+[*] [2] Get new seed '\x9d\x94\xfa&\xe9s \xcf'
+[*] [2] Get new seed '\x98\xec\x8eP\xe9s \xcf'
+[*] [2] Get new seed '\x9b\x9f\xfe$\x9d\x07P\xb6'
+[*] [2] Get new seed '\x99\xec\x8eP\xe9s \xcf'
+[*] [2] Get new seed '\x9c\x98\x8eP\xe9s \xcf'
+[*] [2] Get new seed '\x98\x9c\xf6P\xe9s \xcf'
+[*] [2] Get new seed '\x93\x95\xf7(\x9bs \xcf'
+[*] [2] Get new seed '\x9b\xec\x8eP\xe9s \xcf'
+[*] [2] Get new seed '\x99\x98\xf7!\x9e\x04 \xcf'
+[*] [2] Get new seed '\x98\x9d\xfe(\x99\x06W\xcf'
+[*] [2] Get new seed '\x98\x9c\xf6!\x9e\x07Q\xbc'
+[*] [2] Get new seed '\x87\x95\xfa%\x9c\x06T\xb8'
+[*] [33mDiscarding bad input of atoi[0m
+[*] current seeds has 1 items
+[*] random seed index is 0
+[*] seed count is 3
+[*] try seed: 'AAAAAAAAAAAAAAAA', level is 1
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '\xeb\xec\x8eP\xe9s \xcf'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [33mDiscarding bad input of atoi[0m
+[*] Guesser save_state called
+[*] InputSolver save_state called
+[*] current seeds has 12 items
+[*] random seed index is 0
+[*] seed count is 4
+[*] try seed: '\x9d\x94\xfa&\xe9s \xcf', level is 2
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '7957AAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [2] Detect constant branch at 0x8048b49 with state -2059260660732300158
+[*] [1] Get new seed '\x9a\x9d\xff#\xe9s \xcf'
+[*] [2] Detect constant branch at 0x8048b4e with state 2014810734407113900
+[*] [1] Get new seed '\x9a\x9d\xff"\xe9s \xcf'
+[*] [2] Detect constant branch at 0x8048b68 with state 4611200210170724966
+[*] [1] Get new seed '\x9a\x9d\xff \xe9s \xcf'
+[*] [32mThe program finished normally with current seed, no more fuzzing[0m
+[*] current seeds has 11 items
+[*] random seed index is 0
+[*] seed count is 5
+[*] try seed: '\x93\x95\xf7(\x9bs \xcf', level is 2
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '98893AAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] current branch has been explored, state is -2059260660732300158 at 0x8048b49
+[*] current branch has been explored, state is 2014810734407113900 at 0x8048b4e
+[*] [32mThe program finished normally with current seed, no more fuzzing[0m
+[*] current seeds has 10 items
+[*] random seed index is 0
+[*] seed count is 6
+[*] try seed: '\x98\xec\x8eP\xe9s \xcf', level is 2
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '2AAAAAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[!] [callback_write] Invalid target memory address 0xafbeadde
+[*] [3] Get new seed '\x98\xec\x8eP\xe9s \xcfAAAAAAAA'
+[*] [2] add_seed, new seed is '\x98\xec\x8eP\xe9s \xcfAAAAAAAA'
+[*] [5] Get new seed '\x98\xec\x8eP\xe9s \xcfAA\xcfA\xec\xe9AA\x98PAAA\xe9 A'
+[*] [5] Get new seed '\x98\xec\x8eP\xe9s \xcf\xecsA\xec\xecA\xcfA\x98APAA\x8e A'
+[*] [5] Get new seed '\x98\xec\x8eP\xe9s \xcfsAA\x8e\xcf\xcfA\x8e\x8eAAA\x8ePAA'
+[*] current seeds has 9 items
+[*] random seed index is 0
+[*] seed count is 7
+[*] try seed: '\x99\x98\xf7!\x9e\x04 \xcf', level is 2
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '358066AA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [32mThe program finished normally with current seed, no more fuzzing[0m
+[*] current seeds has 8 items
+[*] random seed index is 0
+[*] seed count is 8
+[*] try seed: '\x87\x95\xfa%\x9c\x06T\xb8', level is 2
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '-8544456'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [32mThe program finished normally with current seed, no more fuzzing[0m
+[*] current seeds has 7 items
+[*] random seed index is 0
+[*] seed count is 9
+[*] try seed: '\x98\x9c\xf6P\xe9s \xcf', level is 2
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '219AAAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [32mThe program finished normally with current seed, no more fuzzing[0m
+[*] current seeds has 6 items
+[*] random seed index is 0
+[*] seed count is 10
+[*] try seed: '\x9c\x98\x8eP\xe9s \xcf', level is 2
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '65AAAAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [32mThe program finished normally with current seed, no more fuzzing[0m
+[*] current seeds has 5 items
+[*] random seed index is 4
+[*] seed count is 11
+[*] try seed: '\x98\x9d\xfe(\x99\x06W\xcf', level is 2
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '2019146A'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [32mThe program finished normally with current seed, no more fuzzing[0m
+[*] current seeds has 4 items
+[*] random seed index is 0
+[*] seed count is 12
+[*] try seed: '\x99\xec\x8eP\xe9s \xcf', level is 2
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '3AAAAAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [3] Get new seed '\x99\xec\x8eP\xe9s \xcfAAAAAAAA'
+[*] [2] add_seed, new seed is '\x99\xec\x8eP\xe9s \xcfAAAAAAAA'
+[*] [5] Get new seed '\x99\xec\x8eP\xe9s \xcf\xcfAsAAAsPA P\x8e\x99APA'
+[*] [5] Get new seed '\x99\xec\x8eP\xe9s \xcfA\x99\x8e\xec\xe9A\x8e\x8e\xcf\x99A\xec\xe9\xe9AA'
+[*] [5] Get new seed '\x99\xec\x8eP\xe9s \xcfA\xec\xcfP\xec\x8e\xecsAAAAAAA\xcf'
+[*] current seeds has 3 items
+[*] random seed index is 0
+[*] seed count is 13
+[*] try seed: '\x9b\xec\x8eP\xe9s \xcf', level is 2
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '1AAAAAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [3] Get new seed '\x9b\xec\x8eP\xe9s \xcfAAAAAAAA'
+[*] [2] add_seed, new seed is '\x9b\xec\x8eP\xe9s \xcfAAAAAAAA'
+[*] [5] Get new seed '\x9b\xec\x8eP\xe9s \xcfAA\xcfAA\x8eAAA\x9bPAA\xecAA'
+[*] [5] Get new seed '\x9b\xec\x8eP\xe9s \xcf\xcf\xecAAAAAAPA A\x9bA\xecA'
+[*] [5] Get new seed '\x9b\xec\x8eP\xe9s \xcf\xcf\xe9\x8eA\xcf\xecP\x8ePA\x8e\xec\xe9AA\xcf'
+[*] current seeds has 2 items
+[*] random seed index is 0
+[*] seed count is 14
+[*] try seed: '\x9b\x9f\xfe$\x9d\x07P\xb6', level is 2
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '12155518'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [32mThe program finished normally with current seed, no more fuzzing[0m
+[*] current seeds has 1 items
+[*] random seed index is 0
+[*] seed count is 15
+[*] try seed: '\x98\x9c\xf6!\x9e\x07Q\xbc', level is 2
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '21906502'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [32mThe program finished normally with current seed, no more fuzzing[0m
+[*] Guesser save_state called
+[*] InputSolver save_state called
+[*] current seeds has 15 items
+[*] random seed index is 0
+[*] seed count is 16
+[*] try seed: '\x9a\x9d\xff#\xe9s \xcf', level is 3
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '0002AAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [3] Get new seed '\x9a\x9d\xff#\xe9s \xcfAAAAAAAA'
+[*] [2] add_seed, new seed is '\x9a\x9d\xff#\xe9s \xcfAAAAAAAA'
+[*] [5] Get new seed '\x9a\x9d\xff#\xe9s \xcfAA\x9d\x9aAAA\xffAA  \xcf \xe9A'
+[*] [5] Get new seed '\x9a\x9d\xff#\xe9s \xcf#A\xffAAAAA\xcfAA#sss\xe9'
+[*] [5] Get new seed '\x9a\x9d\xff#\xe9s \xcf\x9d\xe9 #\x9a#\xcf AA\xffA\xffAAA'
+[*] current seeds has 14 items
+[*] random seed index is 0
+[*] seed count is 17
+[*] try seed: '\x99\xec\x8eP\xe9s \xcf\xcfAsAAAsPA P\x8e\x99APA', level is 3
+[*] base_seed is '\x99\xec\x8eP\xe9s \xcf'
+[*] [1] Find branch unsolvable 0x806e21e with state -381075842254108062
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '3AAAAAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [0x8048967] atoi arg is 'e\xec\xbcP\xe9s\x12\xde'
+[*] [32mStart symbolizing atoi result register eax[0m
+[!] Eip address [0x0] is illegal
+[*] good atoi result is [2147483648L]
+[*] fuzz atoi ['5872AAAA', '59672AAA', '86610865', '-2298310', '60AAAAAA', '7AAAAAAA', '46636894', '597235AA', '-2147483', '6559571A', '975AAAAA']
+[*] traceMemory is (4287380599, 4287380600, 4287380601, 4287380602, 4287380603, 4287380604, 4287380605, 4287380606)
+[*] src is [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+[*] symbolize_list is [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+[*] [2] Get new seed '\x99\x05\x8eP\xe9s \xcf\x9f\x95\xf8#\xe9s \xcf'
+[*] [2] Get new seed '\x99\x05\x8eP\xe9s \xcf\x9f\x94\xf9&\x9as \xcf'
+[*] [2] Get new seed '\x99\x05\x8eP\xe9s \xcf\x92\x9b\xf9 \x98\nW\xbb'
+[*] [2] Get new seed '\x99\x05\x8eP\xe9s \xcf\x87\x9f\xfd(\x90\x01P\xbe'
+[*] [2] Get new seed '\x99\x05\x8eP\xe9s \xcf\x9c\x9d\x8eP\xe9s \xcf'
+[*] [2] Get new seed '\x99\x05\x8eP\xe9s \xcf\x9d\xec\x8eP\xe9s \xcf'
+[*] [2] Get new seed '\x99\x05\x8eP\xe9s \xcf\x9e\x9b\xf9"\x9e\nX\xba'
+[*] [2] Get new seed '\x99\x05\x8eP\xe9s \xcf\x9f\x94\xf8#\x9b\x07 \xcf'
+[*] [2] Get new seed '\x99\x05\x8eP\xe9s \xcf\x87\x9f\xfe%\x9f\x06Y\xbd'
+[*] [2] Get new seed '\x99\x05\x8eP\xe9s \xcf\x9c\x98\xfa(\x9d\x05P\xcf'
+[*] [2] Get new seed '\x99\x05\x8eP\xe9s \xcf\x93\x9a\xfaP\xe9s \xcf'
+[*] [33mDiscarding bad input of atoi[0m
+[*] current seeds has 13 items
+[*] random seed index is 0
+[*] seed count is 18
+[*] try seed: '\x98\xec\x8eP\xe9s \xcf\xecsA\xec\xecA\xcfA\x98APAA\x8e A', level is 3
+[x] Starting local process '/home/bluecake/docker_share/tmp/TritonEmulator/example/pwn3/bin_symbol_fuzzer/bin'
+[+] Starting local process '/home/bluecake/docker_share/tmp/TritonEmulator/example/pwn3/bin_symbol_fuzzer/bin': pid 32549
+[*] try to dump memory with seed '\x98\xec\x8eP\xe9s \xcf'
+[*] gdb -nx -command=/tmp/tmpGsrJ3E --pid=32549
+[*] Stopped process '/home/bluecake/docker_share/tmp/TritonEmulator/example/pwn3/bin_symbol_fuzzer/bin' (pid 32549)
+[*] base_seed is '\x98\xec\x8eP\xe9s \xcf'
+[*] [1] Find branch unsolvable 0x806e21e with state -381075842254108062
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '2AAAAAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [0x8048967] atoi arg is 'F\xde\x8e\xfdDs\xae\xcf'
+[*] [32mStart symbolizing atoi result register eax[0m
+[*] good atoi result is [2147483648L]
+[*] fuzz atoi ['12126828', '252802AA', '70610AAA', '930AAAAA', '94516294', '76AAAAAA', '8109AAAA', '-2147483', '-5536294', '6AAAAAAA', '4824780A']
+[*] traceMemory is (4287380599, 4287380600, 4287380601, 4287380602, 4287380603, 4287380604, 4287380605, 4287380606)
+[*] src is [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+[*] symbolize_list is [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+[*] [2] Get new seed '\x98\x05\x8eP\xe9s \xcf\x9b\x9f\xfe#\x9e\nS\xb6'
+[*] [2] Get new seed '\x98\x05\x8eP\xe9s \xcf\x98\x98\xfd)\x98\x00 \xcf'
+[*] [2] Get new seed '\x98\x05\x8eP\xe9s \xcf\x9d\x9d\xf9 \x98s \xcf'
+[*] [2] Get new seed '\x98\x05\x8eP\xe9s \xcf\x93\x9e\xffP\xe9s \xcf'
+[*] [2] Get new seed '\x98\x05\x8eP\xe9s \xcf\x93\x99\xfa \x9e\x00X\xba'
+[*] [2] Get new seed '\x98\x05\x8eP\xe9s \xcf\x9d\x9b\x8eP\xe9s \xcf'
+[*] [2] Get new seed '\x98\x05\x8eP\xe9s \xcf\x92\x9c\xff(\xe9s \xcf'
+[*] [2] Get new seed '\x98\x05\x8eP\xe9s \xcf\x87\x9f\xfe%\x9f\x06Y\xbd'
+[*] [2] Get new seed '\x98\x05\x8eP\xe9s \xcf\x87\x98\xfa"\x9e\x00X\xba'
+[*] [2] Get new seed '\x98\x05\x8eP\xe9s \xcf\x9c\xec\x8eP\xe9s \xcf'
+[*] [2] Get new seed '\x98\x05\x8eP\xe9s \xcf\x9e\x95\xfd%\x9f\nQ\xcf'
+[*] [33mDiscarding bad input of atoi[0m
+[*] current seeds has 12 items
+[*] random seed index is 0
+[*] seed count is 19
+[*] try seed: '\x98\xec\x8eP\xe9s \xcfAA\xcfA\xec\xe9AA\x98PAAA\xe9 A', level is 3
+[*] base_seed is '\x98\xec\x8eP\xe9s \xcf'
+[*] [1] Find branch unsolvable 0x806e21e with state -381075842254108062
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '2AAAAAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [0x8048967] atoi arg is '\xeb\xec'
+[*] Current atoi branch has been explored, state is -2819490917065965688
+[*] [33mDiscarding bad input of atoi[0m
+[*] current seeds has 11 items
+[*] random seed index is 0
+[*] seed count is 20
+[*] try seed: '\x9b\xec\x8eP\xe9s \xcf\xcf\xecAAAAAAPA A\x9bA\xecA', level is 3
+[*] base_seed is '\x9b\xec\x8eP\xe9s \xcf'
+[*] [1] Find branch unsolvable 0x806e21e with state -381075842254108062
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '1AAAAAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [0x8048967] atoi arg is 'eA\x8eP\xe9s \xcf'
+[*] [32mStart symbolizing atoi result register eax[0m
+[*] good atoi result is [320L, 4294967264L, 537395584L, 2147482104L, 13405206L]
+[*] fuzz atoi ['21515AAA', '3419765A', '8AAAAAAA', '379AAAAA', '13405206', '82AAAAAA', '93569021', '320AAAAA', '21474821', '-32AAAAA', '193772AA', '4989AAAA', '53739558', '56690454', '-7169074']
+[*] traceMemory is (4287380551, 4287380552, 4287380553, 4287380554, 4287380555, 4287380556, 4287380557, 4287380558)
+[*] src is [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+[*] symbolize_list is [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+[*] [2] Get new seed '\x9b\x05\x8eP\xe9s \xcf\x98\x9c\xfa \x9ds \xcf'
+[*] [2] Get new seed '\x9b\x05\x8eP\xe9s \xcf\x99\x99\xfe(\x9f\x04T\xcf'
+[*] [2] Get new seed '\x9b\x05\x8eP\xe9s \xcf\x92\xec\x8eP\xe9s \xcf'
+[*] [2] Get new seed '\x9b\x05\x8eP\xe9s \xcf\x99\x9a\xf6P\xe9s \xcf'
+[*] [2] Get new seed '\x9b\x05\x8eP\xe9s \xcf\x9b\x9e\xfb!\x9d\x00Q\xb8'
+[*] [2] Get new seed '\x9b\x05\x8eP\xe9s \xcf\x92\x9f\x8eP\xe9s \xcf'
+[*] [2] Get new seed "\x9b\x05\x8eP\xe9s \xcf\x93\x9e\xfa'\x91\x02S\xbf"
+[*] [2] Get new seed '\x9b\x05\x8eP\xe9s \xcf\x99\x9f\xffP\xe9s \xcf'
+[*] [2] Get new seed '\x9b\x05\x8eP\xe9s \xcf\x98\x9c\xfb&\x9c\nS\xbf'
+[*] [2] Get new seed '\x9b\x05\x8eP\xe9s \xcf\x87\x9e\xfdP\xe9s \xcf'
+[*] [2] Get new seed '\x9b\x05\x8eP\xe9s \xcf\x9b\x94\xfc&\x9f\x00 \xcf'
+[*] [2] Get new seed '\x9b\x05\x8eP\xe9s \xcf\x9e\x94\xf7(\xe9s \xcf'
+[*] [2] Get new seed '\x9b\x05\x8eP\xe9s \xcf\x9f\x9e\xf8"\x91\x07T\xb6'
+[*] [2] Get new seed '\x9b\x05\x8eP\xe9s \xcf\x9f\x9b\xf9(\x98\x06T\xba'
+[*] [2] Get new seed "\x9b\x05\x8eP\xe9s \xcf\x87\x9a\xfe'\x91\x02V\xba"
+[*] [33mDiscarding bad input of atoi[0m
+[*] current seeds has 10 items
+[*] random seed index is 9
+[*] seed count is 21
+[*] try seed: '\x9b\xec\x8eP\xe9s \xcfAA\xcfAA\x8eAAA\x9bPAA\xecAA', level is 3
+[*] base_seed is '\x9b\xec\x8eP\xe9s \xcf'
+[*] [1] Find branch unsolvable 0x806e21e with state -381075842254108062
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '1AAAAAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [0x8048967] atoi arg is '\xeb\xec'
+[*] Current atoi branch has been explored, state is 7579245945139036597
+[*] [33mDiscarding bad input of atoi[0m
+[*] current seeds has 9 items
+[*] random seed index is 0
+[*] seed count is 22
+[*] try seed: '\x9b\xec\x8eP\xe9s \xcf\xcf\xe9\x8eA\xcf\xecP\x8ePA\x8e\xec\xe9AA\xcf', level is 3
+[*] base_seed is '\x9b\xec\x8eP\xe9s \xcf'
+[*] [1] Find branch unsolvable 0x806e21e with state -381075842254108062
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '1AAAAAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [0x8048967] atoi arg is 'eDAPg\xde1'
+[*] Current atoi branch has been explored, state is 7579245945139036597
+[*] [33mDiscarding bad input of atoi[0m
+[*] current seeds has 8 items
+[*] random seed index is 0
+[*] seed count is 23
+[*] try seed: '\x99\xec\x8eP\xe9s \xcfAAAAAAAA', level is 3
+[*] base_seed is '\x99\xec\x8eP\xe9s \xcf'
+[*] [1] Find branch unsolvable 0x806e21e with state -381075842254108062
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '3AAAAAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [0x8048967] atoi arg is '\xeb\xec\x8eP\xe9s \xcf'
+[*] Current atoi branch has been explored, state is -2308554368578765730
+[*] [33mDiscarding bad input of atoi[0m
+[*] current seeds has 7 items
+[*] random seed index is 0
+[*] seed count is 24
+[*] try seed: '\x9b\xec\x8eP\xe9s \xcfAAAAAAAA', level is 3
+[*] base_seed is '\x9b\xec\x8eP\xe9s \xcf'
+[*] [1] Find branch unsolvable 0x806e21e with state -381075842254108062
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '1AAAAAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [0x8048967] atoi arg is '\xeb\xec\x8eP\xe9s \xcf'
+[*] Current atoi branch has been explored, state is 7579245945139036597
+[*] [33mDiscarding bad input of atoi[0m
+[*] current seeds has 6 items
+[*] random seed index is 0
+[*] seed count is 25
+[*] try seed: '\x98\xec\x8eP\xe9s \xcfAAAAAAAA', level is 3
+[*] base_seed is '\x98\xec\x8eP\xe9s \xcf'
+[*] [1] Find branch unsolvable 0x806e21e with state -381075842254108062
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '2AAAAAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [0x8048967] atoi arg is '\xeb\xec\x8eP\xe9s \xcf'
+[*] Current atoi branch has been explored, state is -2819490917065965688
+[*] [33mDiscarding bad input of atoi[0m
+[*] current seeds has 5 items
+[*] random seed index is 0
+[*] seed count is 26
+[*] try seed: '\x99\xec\x8eP\xe9s \xcfA\x99\x8e\xec\xe9A\x8e\x8e\xcf\x99A\xec\xe9\xe9AA', level is 3
+[*] base_seed is '\x99\xec\x8eP\xe9s \xcf'
+[*] [1] Find branch unsolvable 0x806e21e with state -381075842254108062
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '3AAAAAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [0x8048967] atoi arg is '\xeb4A\xfdAs\xef'
+[*] Current atoi branch has been explored, state is -2308554368578765730
+[*] [33mDiscarding bad input of atoi[0m
+[*] current seeds has 4 items
+[*] random seed index is 0
+[*] seed count is 27
+[*] try seed: '\x9a\x9d\xff \xe9s \xcf', level is 3
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '0001AAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [3] Get new seed '\x9a\x9d\xff \xe9s \xcfAAAAAAAA'
+[*] [2] add_seed, new seed is '\x9a\x9d\xff \xe9s \xcfAAAAAAAA'
+[*] [5] Get new seed '\x9a\x9d\xff \xe9s \xcf  \x9dAA AAA \xe9\x9d AA\x9a'
+[*] [5] Get new seed '\x9a\x9d\xff \xe9s \xcfAAAAAAA\x9d\x9aA\x9d \xe9\xcfA '
+[*] [5] Get new seed '\x9a\x9d\xff \xe9s \xcfA A\x9dA\x9dAsA AAAA\x9dA'
+[*] current seeds has 3 items
+[*] random seed index is 0
+[*] seed count is 28
+[*] try seed: '\x98\xec\x8eP\xe9s \xcfsAA\x8e\xcf\xcfA\x8e\x8eAAA\x8ePAA', level is 3
+[*] base_seed is '\x98\xec\x8eP\xe9s \xcf'
+[*] [1] Find branch unsolvable 0x806e21e with state -381075842254108062
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '2AAAAAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [0x8048967] atoi arg is '\xd9\xec\x8e\x9fg\xfd '
+[*] Current atoi branch has been explored, state is -2819490917065965688
+[*] [33mDiscarding bad input of atoi[0m
+[*] current seeds has 2 items
+[*] random seed index is 0
+[*] seed count is 29
+[*] try seed: '\x99\xec\x8eP\xe9s \xcfA\xec\xcfP\xec\x8e\xecsAAAAAAA\xcf', level is 3
+[*] base_seed is '\x99\xec\x8eP\xe9s \xcf'
+[*] [1] Find branch unsolvable 0x806e21e with state -381075842254108062
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '3AAAAAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [0x8048967] atoi arg is '\xebA'
+[*] Current atoi branch has been explored, state is -2308554368578765730
+[*] [33mDiscarding bad input of atoi[0m
+[*] current seeds has 1 items
+[*] random seed index is 0
+[*] seed count is 30
+[*] try seed: '\x9a\x9d\xff"\xe9s \xcf', level is 3
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '0003AAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [3] Get new seed '\x9a\x9d\xff"\xe9s \xcfAAAAAAAA'
+[*] [2] add_seed, new seed is '\x9a\x9d\xff"\xe9s \xcfAAAAAAAA'
+[*] [5] Get new seed '\x9a\x9d\xff"\xe9s \xcf\x9dAAAAA\x9d\xe9\x9aAAA"A\xe9\x9a'
+[*] [5] Get new seed '\x9a\x9d\xff"\xe9s \xcfAAAAAAs\x9aA\xffAAAAsA'
+[*] [5] Get new seed '\x9a\x9d\xff"\xe9s \xcf A" "\x9aAA" \x9dA AAA'
+[*] Guesser save_state called
+[*] InputSolver save_state called
+[*] current seeds has 49 items
+[*] random seed index is 35
+[*] seed count is 31
+[*] try seed: '\x9b\x05\x8eP\xe9s \xcf\x9b\x9e\xfb!\x9d\x00Q\xb8', level is 4
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '1\xa8AAAAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [0x8048967] atoi arg is '13405206'
+[*] Current atoi branch has been explored, state is 7579245945139036597
+[*] [2] Detect constant branch at 0x80489df with state -7277028483126452076
+[*] [1] Get new seed '\x9b\x05\x8eP\xe9s \xcf\x9a\x9d\xff!\x98\x00Q\xb8'
+[*] [3] Get new seed '\x9b\x05\x8eP\xe9s \xcf\x9b\x9e\xfb!\x9d\x00Q\xb8AAAAAAAA'
+[*] [2] add_seed, new seed is '\x9b\x05\x8eP\xe9s \xcf\x9b\x9e\xfb!\x9d\x00Q\xb8AAAAAAAA'
+[*] [5] Get new seed '\x9b\x05\x8eP\xe9s \xcf\x9b\x9e\xfb!\x9d\x00Q\xb8\x00AAA\x9b\xb8\x00\x00As \xcf\x98\x98A\x8e'
+[*] [5] Get new seed '\x9b\x05\x8eP\xe9s \xcf\x9b\x9e\xfb!\x9d\x00Q\xb8\x9a\x9d\xcf\xff\x9as\xe9\x9b\xfb\x05P\xcf\x9b\xe9\xff\xe9'
+[*] [5] Get new seed '\x9b\x05\x8eP\xe9s \xcf\x9b\x9e\xfb!\x9d\x00Q\xb8AQAsA\xfb\xe9\x05AQ\xe9!\x9b\xb8\x9dA'
+[*] current seeds has 48 items
+[*] random seed index is 0
+[*] seed count is 32
+[*] try seed: '\x9b\x05\x8eP\xe9s \xcf\x87\x9e\xfdP\xe9s \xcf', level is 4
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '1\xa8AAAAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [0x8048967] atoi arg is '-32AAAAA'
+[*] Current atoi branch has been explored, state is 7579245945139036597
+[*] current branch has been explored, state is -7277028483126452076 at 0x80489df
+[*] [3] Get new seed '\x9b\x05\x8eP\xe9s \xcf\x87\x9e\xfdP\xe9s \xcfAAAAAAAA'
+[*] [2] add_seed, new seed is '\x9b\x05\x8eP\xe9s \xcf\x87\x9e\xfdP\xe9s \xcfAAAAAAAA'
+[*] [5] Get new seed '\x9b\x05\x8eP\xe9s \xcf\x87\x9e\xfdP\xe9s \xcfssA AAA\x9bA\xcf\xe9A\xcfs\x8e\x05'
+[*] [5] Get new seed '\x9b\x05\x8eP\xe9s \xcf\x87\x9e\xfdP\xe9s \xcfA AAAP \x9e \x8eAPs\x8e\xfd\x9e'
+[*] [5] Get new seed '\x9b\x05\x8eP\xe9s \xcf\x87\x9e\xfdP\xe9s \xcf\xe9PA\xcf  A\x87A\x9b\x05A\xcfA\x87A'
+[*] current seeds has 47 items
+[*] random seed index is 0
+[*] seed count is 33
+[*] try seed: '\x9b\x05\x8eP\xe9s \xcf\x9e\x94\xf7(\xe9s \xcf', level is 4
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '1\xa8AAAAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [0x8048967] atoi arg is '4989AAAA'
+[*] Current atoi branch has been explored, state is 7579245945139036597
+[*] [3] Get new seed '\x9b\x05\x8eP\xe9s \xcf\x9e\x94\xf7(\xe9s \xcfAAAAAAAA'
+[*] [2] add_seed, new seed is '\x9b\x05\x8eP\xe9s \xcf\x9e\x94\xf7(\xe9s \xcfAAAAAAAA'
+[*] [5] Get new seed '\x9b\x05\x8eP\xe9s \xcf\x9e\x94\xf7(\xe9s \xcf\xf7AAA\xcf A\xf7\x05s\xcf(\x05ss\xe9'
+[*] [5] Get new seed '\x9b\x05\x8eP\xe9s \xcf\x9e\x94\xf7(\xe9s \xcfPAAs\xf7\x05\xe9\xcf\x8eA(AA\xcfs\x94'
+[*] [5] Get new seed '\x9b\x05\x8eP\xe9s \xcf\x9e\x94\xf7(\xe9s \xcfAA\xe9sAAPA\xf7\x9bP\xf7\xcfA\xe9A'
+[*] current seeds has 46 items
+[*] random seed index is 0
+[*] seed count is 34
+[*] try seed: '\x98\x05\x8eP\xe9s \xcf\x87\x9f\xfe%\x9f\x06Y\xbd', level is 4
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '2\xa8AAAAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [0x8048967] atoi arg is '-2147483'
+[*] Current atoi branch has been explored, state is -2819490917065965688
+[*] [2] Detect constant branch at 0x8048a6d with state 6596290866405603717
+[*] [1] Get new seed '\x98\x05\x8eP\xe9s \xcf\x87\x9d\xff!\x98\x02Q\xbe'
+[*] [3] Get new seed '\x98\x05\x8eP\xe9s \xcf\x87\x9f\xfe%\x9f\x06Y\xbdAAAAAAAA'
+[*] [2] add_seed, new seed is '\x98\x05\x8eP\xe9s \xcf\x87\x9f\xfe%\x9f\x06Y\xbdAAAAAAAA'
+[*] [5] Get new seed '\x98\x05\x8eP\xe9s \xcf\x87\x9f\xfe%\x9f\x06Y\xbd\xe9\x05\x9f\xe9\xbeAsAP \x9fP \xbeAA'
+[*] [5] Get new seed '\x98\x05\x8eP\xe9s \xcf\x87\x9f\xfe%\x9f\x06Y\xbd\x9dY s\xbd\xbd\xcf\x9dP\x9f\x9fAPA\x05\x9f'
+[*] [5] Get new seed '\x98\x05\x8eP\xe9s \xcf\x87\x9f\xfe%\x9f\x06Y\xbd\x05\x98\x87\x02\x05\x9f\xe9\x87! \x05A\xe9A\x98A'
+[*] current seeds has 45 items
+[*] random seed index is 0
+[*] seed count is 35
+[*] try seed: '\x9b\x05\x8eP\xe9s \xcf\x99\x9a\xf6P\xe9s \xcf', level is 4
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '1\xa8AAAAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [0x8048967] atoi arg is '379AAAAA'
+[*] Current atoi branch has been explored, state is 7579245945139036597
+[*] [3] Get new seed '\x9b\x05\x8eP\xe9s \xcf\x99\x9a\xf6P\xe9s \xcfAAAAAAAA'
+[*] [2] add_seed, new seed is '\x9b\x05\x8eP\xe9s \xcf\x99\x9a\xf6P\xe9s \xcfAAAAAAAA'
+[*] [5] Get new seed '\x9b\x05\x8eP\xe9s \xcf\x99\x9a\xf6P\xe9s \xcfAA sA\xf6A PPP\x9bsA\x8e\x8e'
+[*] [5] Get new seed '\x9b\x05\x8eP\xe9s \xcf\x99\x9a\xf6P\xe9s \xcfAAAAAs\x9b A\xcfsA\xcfs P'
+[*] [5] Get new seed '\x9b\x05\x8eP\xe9s \xcf\x99\x9a\xf6P\xe9s \xcf\xcf\xe9\xcf\xcfAAAP\x8eAAP\x8eP\xf6\x9b'
+[*] current seeds has 44 items
+[*] random seed index is 0
+[*] seed count is 36
+[*] try seed: '\x9a\x9d\xff"\xe9s \xcf A" "\x9aAA" \x9dA AAA', level is 4
+[x] Starting local process '/home/bluecake/docker_share/tmp/TritonEmulator/example/pwn3/bin_symbol_fuzzer/bin'
+[+] Starting local process '/home/bluecake/docker_share/tmp/TritonEmulator/example/pwn3/bin_symbol_fuzzer/bin': pid 32718
+[*] try to dump memory with seed '\x9a\x9d\xff"\xe9s \xcf'
+[*] gdb -nx -command=/tmp/tmpoieT9Y --pid=32718
+[*] Stopped process '/home/bluecake/docker_share/tmp/TritonEmulator/example/pwn3/bin_symbol_fuzzer/bin' (pid 32718)
+[*] base_seed is '\x9a\x9d\xff"\xe9s \xcf'
+[*] [1] Find branch unsolvable 0x806e21e with state -1772491685865182665
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '0003AAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [0x8048967] atoi arg is '\x8a\xec\xed1\x8a\xa8 \xcf'
+[*] Current atoi branch has been explored, state is -2308554368578765730
+[*] [33mDiscarding bad input of atoi[0m
+[*] current seeds has 43 items
+[*] random seed index is 0
+[*] seed count is 37
+[*] try seed: '\x9a\x9d\xff \xe9s \xcfAAAAAAAA', level is 4
+[x] Starting local process '/home/bluecake/docker_share/tmp/TritonEmulator/example/pwn3/bin_symbol_fuzzer/bin'
+[+] Starting local process '/home/bluecake/docker_share/tmp/TritonEmulator/example/pwn3/bin_symbol_fuzzer/bin': pid 32748
+[*] try to dump memory with seed '\x9a\x9d\xff \xe9s \xcf'
+[*] gdb -nx -command=/tmp/tmp4gHBeW --pid=32748
+[*] Stopped process '/home/bluecake/docker_share/tmp/TritonEmulator/example/pwn3/bin_symbol_fuzzer/bin' (pid 32748)
+[*] base_seed is '\x9a\x9d\xff \xe9s \xcf'
+[*] [1] Find branch unsolvable 0x806e21e with state -457219075069528125
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '0001AAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [0x8048967] atoi arg is '\xeb\xec\x8eP\xe9s \xcf'
+[*] Current atoi branch has been explored, state is 7579245945139036597
+[*] [33mDiscarding bad input of atoi[0m
+[*] current seeds has 42 items
+[*] random seed index is 0
+[*] seed count is 38
+[*] try seed: '\x99\x05\x8eP\xe9s \xcf\x9f\x95\xf8#\xe9s \xcf', level is 4
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '3\xa8AAAAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [0x8048967] atoi arg is '5872AAAA'
+[*] Current atoi branch has been explored, state is -2308554368578765730
+[*] [2] Detect constant branch at 0x8048ad6 with state -3351032360060634696
+[*] [1] Get new seed '\x99\x05\x8eP\xe9s \xcf\x9a\x9d\xfc!\xe9s \xcf'
+[*] [3] Get new seed '\x99\x05\x8eP\xe9s \xcf\x9f\x95\xf8#\xe9s \xcfAAAAAAAA'
+[*] [2] add_seed, new seed is '\x99\x05\x8eP\xe9s \xcf\x9f\x95\xf8#\xe9s \xcfAAAAAAAA'
+[*] [5] Get new seed '\x99\x05\x8eP\xe9s \xcf\x9f\x95\xf8#\xe9s \xcfsA\x95AAP\x95\xcfA \x05#\x05\x05!\xcf'
+[*] [5] Get new seed '\x99\x05\x8eP\xe9s \xcf\x9f\x95\xf8#\xe9s \xcf\x9aA\x9dsA\xe9\xf8P\x05\xe9 \xcf\xcf\xe9AA'
+[*] [5] Get new seed '\x99\x05\x8eP\xe9s \xcf\x9f\x95\xf8#\xe9s \xcf sP\x9aP\x99\x9aA PAAss\xe9\x8e'
+[*] current seeds has 41 items
+[*] random seed index is 0
+[*] seed count is 39
+[*] try seed: '\x98\x05\x8eP\xe9s \xcf\x93\x99\xfa \x9e\x00X\xba', level is 4
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '2\xa8AAAAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [0x8048967] atoi arg is '94516294'
+[*] Current atoi branch has been explored, state is -2819490917065965688
+[*] current branch has been explored, state is 6596290866405603717 at 0x8048a6d
+[*] [3] Get new seed '\x98\x05\x8eP\xe9s \xcf\x93\x99\xfa \x9e\x00X\xbaAAAAAAAA'
+[*] [2] add_seed, new seed is '\x98\x05\x8eP\xe9s \xcf\x93\x99\xfa \x9e\x00X\xbaAAAAAAAA'
+[*] [5] Get new seed '\x98\x05\x8eP\xe9s \xcf\x93\x99\xfa \x9e\x00X\xba\xfa\x8eA\xcf\x9eA\x93XXA A\x8e\x9eAA'
+[*] [5] Get new seed '\x98\x05\x8eP\xe9s \xcf\x93\x99\xfa \x9e\x00X\xba\x8eAs\x00\x9ePA\x98\x99\xfa\x05\x98AAAA'
+[*] [5] Get new seed '\x98\x05\x8eP\xe9s \xcf\x93\x99\xfa \x9e\x00X\xbaAP\x98\x05A\x8e\x93\x93\x8eA\xe9\x93sX\xfa\x98'
+[*] current seeds has 40 items
+[*] random seed index is 0
+[*] seed count is 40
+[*] try seed: '\x9a\x9d\xff \xe9s \xcf  \x9dAA AAA \xe9\x9d AA\x9a', level is 4
+[*] base_seed is '\x9a\x9d\xff \xe9s \xcf'
+[*] [1] Find branch unsolvable 0x806e21e with state -457219075069528125
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '0001AAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [0x8048967] atoi arg is '\x8a\x8dRP\xe9\x12 \xcf'
+[*] Current atoi branch has been explored, state is 7579245945139036597
+[*] [33mDiscarding bad input of atoi[0m
+[*] current seeds has 39 items
+[*] random seed index is 18
+[*] seed count is 41
+[*] try seed: '\x9a\x9d\xff \xe9s \xcfA A\x9dA\x9dAsA AAAA\x9dA', level is 4
+[*] base_seed is '\x9a\x9d\xff \xe9s \xcf'
+[*] [1] Find branch unsolvable 0x806e21e with state -457219075069528125
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '0001AAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [0x8048967] atoi arg is '\xeb\x8d\x8e\x8c\xe9\xaf \xfd'
+[*] Current atoi branch has been explored, state is 7579245945139036597
+[*] [33mDiscarding bad input of atoi[0m
+[*] current seeds has 38 items
+[*] random seed index is 0
+[*] seed count is 42
+[*] try seed: "\x9b\x05\x8eP\xe9s \xcf\x93\x9e\xfa'\x91\x02S\xbf", level is 4
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '1\xa8AAAAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [0x8048967] atoi arg is '93569021'
+[*] Current atoi branch has been explored, state is 7579245945139036597
+[*] [3] Get new seed "\x9b\x05\x8eP\xe9s \xcf\x93\x9e\xfa'\x91\x02S\xbfAAAAAAAA"
+[*] [2] add_seed, new seed is "\x9b\x05\x8eP\xe9s \xcf\x93\x9e\xfa'\x91\x02S\xbfAAAAAAAA"
+[*] [5] Get new seed "\x9b\x05\x8eP\xe9s \xcf\x93\x9e\xfa'\x91\x02S\xbfAAAAAAsS\xbf\x02\xcf\x02P \x05A"
+[*] [5] Get new seed "\x9b\x05\x8eP\xe9s \xcf\x93\x9e\xfa'\x91\x02S\xbf \xbf\xfaA\x9e\x8es\x91AAA'A\xfaA\xbf"
+[*] [5] Get new seed "\x9b\x05\x8eP\xe9s \xcf\x93\x9e\xfa'\x91\x02S\xbfA AP\x9e\xe9PAA\xbfP\x91\x93P\x8es"
+[*] current seeds has 37 items
+[*] random seed index is 0
+[*] seed count is 43
+[*] try seed: '\x99\x05\x8eP\xe9s \xcf\x9f\x94\xf9&\x9as \xcf', level is 4
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '3\xa8AAAAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [0x8048967] atoi arg is '59672AAA'
+[*] Current atoi branch has been explored, state is -2308554368578765730
+[*] current branch has been explored, state is -3351032360060634696 at 0x8048ad6
+[*] [3] Get new seed '\x99\x05\x8eP\xe9s \xcf\x9f\x94\xf9&\x9as \xcfAAAAAAAA'
+[*] [2] add_seed, new seed is '\x99\x05\x8eP\xe9s \xcf\x9f\x94\xf9&\x9as \xcfAAAAAAAA'
+[*] [5] Get new seed '\x99\x05\x8eP\xe9s \xcf\x9f\x94\xf9&\x9as \xcf \xcfAAA\x05AAA\x94A \xe9\xe9\x94s'
+[*] [5] Get new seed '\x99\x05\x8eP\xe9s \xcf\x9f\x94\xf9&\x9as \xcfsAA\x94s& A \xcfAs\x99\xcfA\xcf'
+[*] [5] Get new seed '\x99\x05\x8eP\xe9s \xcf\x9f\x94\xf9&\x9as \xcf\x94\x94AA\x94 \x9a&A\x99AAAAPs'
+[*] current seeds has 36 items
+[*] random seed index is 0
+[*] seed count is 44
+[*] try seed: '\x9b\x05\x8eP\xe9s \xcf\x99\x9f\xffP\xe9s \xcf', level is 4
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '1\xa8AAAAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [0x8048967] atoi arg is '320AAAAA'
+[*] Current atoi branch has been explored, state is 7579245945139036597
+[*] [3] Get new seed '\x9b\x05\x8eP\xe9s \xcf\x99\x9f\xffP\xe9s \xcfAAAAAAAA'
+[*] [2] add_seed, new seed is '\x9b\x05\x8eP\xe9s \xcf\x99\x9f\xffP\xe9s \xcfAAAAAAAA'
+[*] [5] Get new seed '\x9b\x05\x8eP\xe9s \xcf\x99\x9f\xffP\xe9s \xcfAA\xcfAA\xe9AA\xcfA A\xe9\xcf\xe9 '
+[*] [5] Get new seed '\x9b\x05\x8eP\xe9s \xcf\x99\x9f\xffP\xe9s \xcf\xe9A\x9b\xe9\xff\xcf\x9bsA\xe9AA\xe9 A '
+[*] [5] Get new seed '\x9b\x05\x8eP\xe9s \xcf\x99\x9f\xffP\xe9s \xcf\xcf\x8e\xe9\x9fs\x99\x99AP\xff\xcf\x9bAA\x8e\x9b'
+[*] current seeds has 35 items
+[*] random seed index is 0
+[*] seed count is 45
+[*] try seed: '\x99\x05\x8eP\xe9s \xcf\x92\x9b\xf9 \x98\nW\xbb', level is 4
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '3\xa8AAAAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [0x8048967] atoi arg is '86610865'
+[*] Current atoi branch has been explored, state is -2308554368578765730
+[*] [3] Get new seed '\x99\x05\x8eP\xe9s \xcf\x92\x9b\xf9 \x98\nW\xbbAAAAAAAA'
+[*] [2] add_seed, new seed is '\x99\x05\x8eP\xe9s \xcf\x92\x9b\xf9 \x98\nW\xbbAAAAAAAA'
+[*] [5] Get new seed '\x99\x05\x8eP\xe9s \xcf\x92\x9b\xf9 \x98\nW\xbbA\x05P \x92\xcf\xcfP\x9bA\x99A\x9b \x8e\n'
+[*] [5] Get new seed '\x99\x05\x8eP\xe9s \xcf\x92\x9b\xf9 \x98\nW\xbbA\xcf AAA\x9bAs\x99AAA\xe9AA'
+[*] [5] Get new seed '\x99\x05\x8eP\xe9s \xcf\x92\x9b\xf9 \x98\nW\xbb\xf9\xf9AAAs \x99P \n\x8eA\x9bP\xbb'
+[*] current seeds has 34 items
+[*] random seed index is 0
+[*] seed count is 46
+[*] try seed: "\x9b\x05\x8eP\xe9s \xcf\x87\x9a\xfe'\x91\x02V\xba", level is 4
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '1\xa8AAAAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [0x8048967] atoi arg is '-7169074'
+[*] Current atoi branch has been explored, state is 7579245945139036597
+[*] [3] Get new seed "\x9b\x05\x8eP\xe9s \xcf\x87\x9a\xfe'\x91\x02V\xbaAAAAAAAA"
+[*] [2] add_seed, new seed is "\x9b\x05\x8eP\xe9s \xcf\x87\x9a\xfe'\x91\x02V\xbaAAAAAAAA"
+[*] [5] Get new seed "\x9b\x05\x8eP\xe9s \xcf\x87\x9a\xfe'\x91\x02V\xba \x05'A\x05\x9aP\xcf\xcf \x9aA'\x8e\x91A"
+[*] [5] Get new seed "\x9b\x05\x8eP\xe9s \xcf\x87\x9a\xfe'\x91\x02V\xbaA\xe9A\x9bPA\x87\xe9\x9bAAV\x9aAAs"
+[*] [5] Get new seed "\x9b\x05\x8eP\xe9s \xcf\x87\x9a\xfe'\x91\x02V\xbaAA'\xfe\x8e'APA AA\x02\x05\x05A"
+[*] current seeds has 33 items
+[*] random seed index is 0
+[*] seed count is 47
+[*] try seed: '\x9a\x9d\xff#\xe9s \xcfAA\x9d\x9aAAA\xffAA  \xcf \xe9A', level is 4
+[x] Starting local process '/home/bluecake/docker_share/tmp/TritonEmulator/example/pwn3/bin_symbol_fuzzer/bin'
+[+] Starting local process '/home/bluecake/docker_share/tmp/TritonEmulator/example/pwn3/bin_symbol_fuzzer/bin': pid 402
+[*] try to dump memory with seed '\x9a\x9d\xff#\xe9s \xcf'
+[*] gdb -nx -command=/tmp/tmpqMbzqC --pid=402
+[*] Stopped process '/home/bluecake/docker_share/tmp/TritonEmulator/example/pwn3/bin_symbol_fuzzer/bin' (pid 402)
+[*] base_seed is '\x9a\x9d\xff#\xe9s \xcf'
+[*] [1] Find branch unsolvable 0x806e21e with state 4025397656401878213
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '0002AAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [0x8048967] atoi arg is '\xeb\xecR\x8b\xe9s q'
+[*] Current atoi branch has been explored, state is -2819490917065965688
+[*] [33mDiscarding bad input of atoi[0m
+[*] current seeds has 32 items
+[*] random seed index is 0
+[*] seed count is 48
+[*] try seed: '\x99\x05\x8eP\xe9s \xcf\x87\x9f\xfe%\x9f\x06Y\xbd', level is 4
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '3\xa8AAAAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [0x8048967] atoi arg is '-2147483'
+[*] Current atoi branch has been explored, state is -2308554368578765730
+[*] [3] Get new seed '\x99\x05\x8eP\xe9s \xcf\x87\x9f\xfe%\x9f\x06Y\xbdAAAAAAAA'
+[*] [2] add_seed, new seed is '\x99\x05\x8eP\xe9s \xcf\x87\x9f\xfe%\x9f\x06Y\xbdAAAAAAAA'
+[*] [5] Get new seed '\x99\x05\x8eP\xe9s \xcf\x87\x9f\xfe%\x9f\x06Y\xbdA\xfeAs\x9f\x9f\xbd\x9f \xfe\xfeA%\x8eA%'
+[*] [5] Get new seed '\x99\x05\x8eP\xe9s \xcf\x87\x9f\xfe%\x9f\x06Y\xbdA\x05\x06sPY\xcf\xe9YA\x9fPPA\xe9A'
+[*] [5] Get new seed '\x99\x05\x8eP\xe9s \xcf\x87\x9f\xfe%\x9f\x06Y\xbd\x99\xcfs\x87YAP\xe9PA\xbdsA\x87\x9f\x06'
+[*] current seeds has 31 items
+[*] random seed index is 0
+[*] seed count is 49
+[*] try seed: '\x98\x05\x8eP\xe9s \xcf\x9e\x95\xfd%\x9f\nQ\xcf', level is 4
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '2\xa8AAAAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [0x8048967] atoi arg is '4824780A'
+[*] Current atoi branch has been explored, state is -2819490917065965688
+[*] [3] Get new seed '\x98\x05\x8eP\xe9s \xcf\x9e\x95\xfd%\x9f\nQ\xcfAAAAAAAA'
+[*] [2] add_seed, new seed is '\x98\x05\x8eP\xe9s \xcf\x9e\x95\xfd%\x9f\nQ\xcfAAAAAAAA'
+[*] [5] Get new seed '\x98\x05\x8eP\xe9s \xcf\x9e\x95\xfd%\x9f\nQ\xcfA\x98\xe9\xcfQ\x98\n\x05AAA\x98AQs\x95'
+[*] [5] Get new seed '\x98\x05\x8eP\xe9s \xcf\x9e\x95\xfd%\x9f\nQ\xcf\x98AQ\xcf\xe9\x9fPQ\xe9%\x9eA\xe9A \x98'
+[*] [5] Get new seed '\x98\x05\x8eP\xe9s \xcf\x9e\x95\xfd%\x9f\nQ\xcf\ns\xcfA\x05 AA\x05A\x95\x9f\n\xfd\xcfs'
+[*] current seeds has 30 items
+[*] random seed index is 0
+[*] seed count is 50
+[*] try seed: '\x99\x05\x8eP\xe9s \xcf\x87\x9f\xfd(\x90\x01P\xbe', level is 4
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '3\xa8AAAAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [0x8048967] atoi arg is '-2298310'
+[*] Current atoi branch has been explored, state is -2308554368578765730
+[*] [3] Get new seed '\x99\x05\x8eP\xe9s \xcf\x87\x9f\xfd(\x90\x01P\xbeAAAAAAAA'
+[*] [2] add_seed, new seed is '\x99\x05\x8eP\xe9s \xcf\x87\x9f\xfd(\x90\x01P\xbeAAAAAAAA'
+[*] [5] Get new seed '\x99\x05\x8eP\xe9s \xcf\x87\x9f\xfd(\x90\x01P\xbe\x90\xe9A\xe9\x05s\x01AA\x8e\xfdAA\x8eP\xbe'
+[*] [5] Get new seed '\x99\x05\x8eP\xe9s \xcf\x87\x9f\xfd(\x90\x01P\xbe\xbe\x99\x9fA\x8e\xbe\x87P\xbeAsPAA\x87 '
+[*] [5] Get new seed '\x99\x05\x8eP\xe9s \xcf\x87\x9f\xfd(\x90\x01P\xbe\xcf\xcfP\x9f \x05P\x05A\x99PA\x99\x87\xe9\x01'
+[*] current seeds has 29 items
+[*] random seed index is 15
+[*] seed count is 51
+[*] try seed: '\x9a\x9d\xff#\xe9s \xcfAAAAAAAA', level is 4
+[*] base_seed is '\x9a\x9d\xff#\xe9s \xcf'
+[*] [1] Find branch unsolvable 0x806e21e with state 4025397656401878213
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '0002AAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [0x8048967] atoi arg is '\xeb\xec\x8eP\xe9s \xcf'
+[*] Current atoi branch has been explored, state is -2819490917065965688
+[*] [33mDiscarding bad input of atoi[0m
+[*] current seeds has 28 items
+[*] random seed index is 0
+[*] seed count is 52
+[*] try seed: '\x98\x05\x8eP\xe9s \xcf\x87\x98\xfa"\x9e\x00X\xba', level is 4
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '2\xa8AAAAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [0x8048967] atoi arg is '-5536294'
+[*] Current atoi branch has been explored, state is -2819490917065965688
+[*] [3] Get new seed '\x98\x05\x8eP\xe9s \xcf\x87\x98\xfa"\x9e\x00X\xbaAAAAAAAA'
+[*] [2] add_seed, new seed is '\x98\x05\x8eP\xe9s \xcf\x87\x98\xfa"\x9e\x00X\xbaAAAAAAAA'
+[*] [5] Get new seed '\x98\x05\x8eP\xe9s \xcf\x87\x98\xfa"\x9e\x00X\xbaAAX\x87\x8e\x9e\x9es A\xcf\x00"A\xba\x00'
+[*] [5] Get new seed '\x98\x05\x8eP\xe9s \xcf\x87\x98\xfa"\x9e\x00X\xbaAAA\xe9\x8e\xcf\x8eA\xcf \x9e\x9eAAAA'
+[*] [5] Get new seed '\x98\x05\x8eP\xe9s \xcf\x87\x98\xfa"\x9e\x00X\xbaPA\x98\x9esAA\xfaA\xe9XAA\x9eXA'
+[*] current seeds has 27 items
+[*] random seed index is 0
+[*] seed count is 53
+[*] try seed: '\x9a\x9d\xff#\xe9s \xcf\x9d\xe9 #\x9a#\xcf AA\xffA\xffAAA', level is 4
+[*] base_seed is '\x9a\x9d\xff#\xe9s \xcf'
+[*] [1] Find branch unsolvable 0x806e21e with state 4025397656401878213
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '0002AAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [0x8048967] atoi arg is '7D\xef22\x11\xae\xae'
+[*] Current atoi branch has been explored, state is -2819490917065965688
+[*] [0x8048967] atoi arg is '\xeb\xec0PWs \xcf'
+[*] [32mStart symbolizing atoi result register eax[0m
+[*] good atoi result is [2L, 3L, 1L]
+[*] fuzz atoi ['1AAAAAAAA', '3AAAAAAAA', '6483AAAAA', '171568415', '45AAAAAAA', '607AAAAAA', '17472AAAA', '711801AAA', '2AAAAAAAA', '-55970259', '6465296AA', '93160069A']
+[*] traceMemory is (4287380631, 4287380632, 4287380633, 4287380634, 4287380635, 4287380636, 4287380637, 4287380638, 4287380639)
+[*] src is [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+[*] symbolize_list is [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+[*] [33mDiscarding bad input of atoi[0m
+[*] current seeds has 26 items
+[*] random seed index is 0
+[*] seed count is 54
+[*] try seed: '\x9b\x05\x8eP\xe9s \xcf\x9f\x9b\xf9(\x98\x06T\xba', level is 4
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '1\xa8AAAAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [0x8048967] atoi arg is '56690454'
+[*] Current atoi branch has been explored, state is 7579245945139036597
+[*] [3] Get new seed '\x9b\x05\x8eP\xe9s \xcf\x9f\x9b\xf9(\x98\x06T\xbaAAAAAAAA'
+[*] [2] add_seed, new seed is '\x9b\x05\x8eP\xe9s \xcf\x9f\x9b\xf9(\x98\x06T\xbaAAAAAAAA'
+[*] [5] Get new seed '\x9b\x05\x8eP\xe9s \xcf\x9f\x9b\xf9(\x98\x06T\xbaA\x9fAAP\xe9A\xbaP\x9b\x9b(Ts\x06\x9f'
+[*] [5] Get new seed '\x9b\x05\x8eP\xe9s \xcf\x9f\x9b\xf9(\x98\x06T\xba\x9b\x9f\x98\x9bPA(s\xf9\x9b\x98AA\x06A('
+[*] [5] Get new seed '\x9b\x05\x8eP\xe9s \xcf\x9f\x9b\xf9(\x98\x06T\xba\x8eA\xcf\x9f\x05T\x06(Ass\xe9A\x06\x06\x06'
+[*] current seeds has 25 items
+[*] random seed index is 0
+[*] seed count is 55
+[*] try seed: '\x99\x05\x8eP\xe9s \xcf\x9c\x98\xfa(\x9d\x05P\xcf', level is 4
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '3\xa8AAAAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [0x8048967] atoi arg is '6559571A'
+[*] Current atoi branch has been explored, state is -2308554368578765730
+[*] [3] Get new seed '\x99\x05\x8eP\xe9s \xcf\x9c\x98\xfa(\x9d\x05P\xcfAAAAAAAA'
+[*] [2] add_seed, new seed is '\x99\x05\x8eP\xe9s \xcf\x9c\x98\xfa(\x9d\x05P\xcfAAAAAAAA'
+[*] [5] Get new seed '\x99\x05\x8eP\xe9s \xcf\x9c\x98\xfa(\x9d\x05P\xcfAA\x8e(A\x9cA\xcf\x99\x8e\x8e s \x99A'
+[*] [5] Get new seed '\x99\x05\x8eP\xe9s \xcf\x9c\x98\xfa(\x9d\x05P\xcf(A\xcf\xcf(\x98\x99sAP\x9cPA\x05\x99\x98'
+[*] [5] Get new seed '\x99\x05\x8eP\xe9s \xcf\x9c\x98\xfa(\x9d\x05P\xcf\x05\xfaAAPAP\x05AAA\x05\x98P\xcf\x05'
+[*] current seeds has 24 items
+[*] random seed index is 0
+[*] seed count is 56
+[*] try seed: '\x9b\x05\x8eP\xe9s \xcf\x9f\x9e\xf8"\x91\x07T\xb6', level is 4
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '1\xa8AAAAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [0x8048967] atoi arg is '53739558'
+[*] Current atoi branch has been explored, state is 7579245945139036597
+[*] [3] Get new seed '\x9b\x05\x8eP\xe9s \xcf\x9f\x9e\xf8"\x91\x07T\xb6AAAAAAAA'
+[*] [2] add_seed, new seed is '\x9b\x05\x8eP\xe9s \xcf\x9f\x9e\xf8"\x91\x07T\xb6AAAAAAAA'
+[*] [5] Get new seed '\x9b\x05\x8eP\xe9s \xcf\x9f\x9e\xf8"\x91\x07T\xb6\xf8\xf8\x9bA\x07\x07\xb6\xe9A\x05\x07\x9b\x91\x9f\x8e\x9f'
+[*] [5] Get new seed '\x9b\x05\x8eP\xe9s \xcf\x9f\x9e\xf8"\x91\x07T\xb6A\x8e\x8e\xb6\x8e \x05AP\xb6A\xe9AA\x07\x05'
+[*] [5] Get new seed '\x9b\x05\x8eP\xe9s \xcf\x9f\x9e\xf8"\x91\x07T\xb6TA\x91AA\x8eA\x9f"A\xf8\xe9AAs"'
+[*] current seeds has 23 items
+[*] random seed index is 0
+[*] seed count is 57
+[*] try seed: '\x9a\x9d\xff"\xe9s \xcfAAAAAAAA', level is 4
+[*] base_seed is '\x9a\x9d\xff"\xe9s \xcf'
+[*] [1] Find branch unsolvable 0x806e21e with state -1772491685865182665
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '0003AAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [0x8048967] atoi arg is '\xeb\xec\x8eP\xe9s \xcf'
+[*] Current atoi branch has been explored, state is -2308554368578765730
+[*] [33mDiscarding bad input of atoi[0m
+[*] current seeds has 22 items
+[*] random seed index is 0
+[*] seed count is 58
+[*] try seed: '\x99\x05\x8eP\xe9s \xcf\x9e\x9b\xf9"\x9e\nX\xba', level is 4
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '3\xa8AAAAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [0x8048967] atoi arg is '46636894'
+[*] Current atoi branch has been explored, state is -2308554368578765730
+[*] [3] Get new seed '\x99\x05\x8eP\xe9s \xcf\x9e\x9b\xf9"\x9e\nX\xbaAAAAAAAA'
+[*] [2] add_seed, new seed is '\x99\x05\x8eP\xe9s \xcf\x9e\x9b\xf9"\x9e\nX\xbaAAAAAAAA'
+[*] [5] Get new seed '\x99\x05\x8eP\xe9s \xcf\x9e\x9b\xf9"\x9e\nX\xbaX""\x9eA\xe9AXA\xcf\x05A\xcf\n\x8eA'
+[*] [5] Get new seed '\x99\x05\x8eP\xe9s \xcf\x9e\x9b\xf9"\x9e\nX\xba\x8e\x05X\x8eAAAA\x99A\xcfPA\x9eA"'
+[*] [5] Get new seed '\x99\x05\x8eP\xe9s \xcf\x9e\x9b\xf9"\x9e\nX\xbaAAAsA \x99\x99A\xf9A \xba\x05A\x99'
+[*] current seeds has 21 items
+[*] random seed index is 0
+[*] seed count is 59
+[*] try seed: '\x99\x05\x8eP\xe9s \xcf\x9c\x9d\x8eP\xe9s \xcf', level is 4
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '3\xa8AAAAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [0x8048967] atoi arg is '60AAAAAA'
+[*] Current atoi branch has been explored, state is -2308554368578765730
+[*] [3] Get new seed '\x99\x05\x8eP\xe9s \xcf\x9c\x9d\x8eP\xe9s \xcfAAAAAAAA'
+[*] [2] add_seed, new seed is '\x99\x05\x8eP\xe9s \xcf\x9c\x9d\x8eP\xe9s \xcfAAAAAAAA'
+[*] [5] Get new seed '\x99\x05\x8eP\xe9s \xcf\x9c\x9d\x8eP\xe9s \xcfs\xe9AA\xcfsPAAAP\xe9 A \xcf'
+[*] [5] Get new seed '\x99\x05\x8eP\xe9s \xcf\x9c\x9d\x8eP\xe9s \xcfs\x8e AA\xe9sA\x9cAAP\x8eA\x8e\xcf'
+[*] [5] Get new seed '\x99\x05\x8eP\xe9s \xcf\x9c\x9d\x8eP\xe9s \xcf \x05sAA\xe9 \xe9 P\x8e\x8e\x99\x99A\x99'
+[*] current seeds has 20 items
+[*] random seed index is 0
+[*] seed count is 60
+[*] try seed: '\x9a\x9d\xff"\xe9s \xcf\x9dAAAAA\x9d\xe9\x9aAAA"A\xe9\x9a', level is 4
+[*] base_seed is '\x9a\x9d\xff"\xe9s \xcf'
+[*] [1] Find branch unsolvable 0x806e21e with state -1772491685865182665
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '0003AAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [0x8048967] atoi arg is '7\xec\x8eP\xe9s\xfcg'
+[*] Current atoi branch has been explored, state is -2308554368578765730
+[!] [31m[1] Find crash at 0x0 with '\x9a\x9d\xff"\xe9s \xcf\x9dAAAAA\x9d\xe9\x9aAAA"A\xe9\x9a'[0m
+[*] [32mThe program finished normally with current seed, no more fuzzing[0m
+[*] current seeds has 19 items
+[*] random seed index is 3
+[*] seed count is 61
+[*] try seed: '\x99\x05\x8eP\xe9s \xcf\x93\x9a\xfaP\xe9s \xcf', level is 4
+[*] base_seed is ''
+[*] [0x8048967] atoi arg is '3\xa8AAAAAA'
+[*] Current atoi branch has been explored, state is 3344508841585826700
+[*] [0x8048967] atoi arg is '975AAAAA'
+[*] Current atoi branch has been explored, state is -2308554368578765730
+[*] [3] Get new seed '\x99\x05\x8eP\xe9s \xcf\x93\x9a\xfaP\xe9s \xcfAAAAAAAA'
+[*] [2] add_seed, new seed is '\x99\x05\x8eP\xe9s \xcf\x93\x9a\xfaP\xe9s \xcfAAAAAAAA'
+[*] [5] Get new seed '\x99\x05\x8eP\xe9s \xcf\x93\x9a\xfaP\xe9s \xcf\x8eA\x93A\xe9 \x8e\x9a\x9a\xfas\x8eAA\x8eA'
+[*] [5] Get new seed '\x99\x05\x8eP\xe9s \xcf\x93\x9a\xfaP\xe9s \xcf\xcf\x9aP\x99\x9aP AA\xe9\xe9\x9a A\xfaA'
+[*] [5] Get new seed '\x99\x05\x8eP\xe9s \xcf\x93\x9a\xfaP\xe9s \xcf\xe9\xe9PAsAA\xcfA\x05\x99\x93AAs '
+[*] memory leak time is out, restart fuzzer
+[*] Fuzzer save_state called
