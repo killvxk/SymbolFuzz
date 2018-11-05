@@ -10,7 +10,7 @@ class Basic(object):
     """A basic class
     
     Attributes:
-        callbacks: A dict, stores map of name and handler
+        callbacks: A dict, stores map of names and handlers
     """
     def __init__(self):
         self.callbacks = {}

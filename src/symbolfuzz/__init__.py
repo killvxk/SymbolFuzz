@@ -1,13 +1,12 @@
 #!/usr/bin/env python
 # coding=utf-8
 
-from emulator import *
-from debugger import *
-from syscall import *
-from exploiter import *
-from guesser import *
+from static import EmuConstant
+from emulator import Emulator
+from debugger import Debugger
+from syscall import Syscall
+from guesser import Guesser
 from fuzzer import *
-from exp_gen import *
 from symbol_fuzzer import *
 import crash
 

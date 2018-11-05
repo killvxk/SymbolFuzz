@@ -20,7 +20,7 @@ class UnsupportedTypeException(Exception):
         if arch == 'x86':
             Exception.__init__(self, "Unsupported arg type %s: %s" % (str(type(arg))), str(arg))
         else:
-            raise UnsupportArchException(arch)
+            raise UnsupportedArchException(arch)
 
 
 ##############################################################################

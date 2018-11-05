@@ -4,153 +4,470 @@
 """
 Module Name: Debugger.py
 Create by  : Bluecake
-Description: A debug tool for x86 and x86_64 program emulate
+Description: A debug tool for program emulator
 """
 
-from emulator import Emulator, UnsupportArchException
+from triton import ARCH
+from emulator import Emulator
+from static import EmuConstant
+from pwn import disasm, log
 from utils import *
-from pwn import disasm
-import logging 
 
-###############################################################################
-#                                  Main Class                                 #
-###############################################################################
+
+class Command(object):
+    """Debug command class
+
+    Attributes:
+        min_arg:    count of minimum command arguments
+        max_arg:    count of maximum command arguments
+        debugger:   Debugger instance
+        cmd_name:   command full name
+    """
+
+    def __init__(self, debugger, cmd_name, min_args=-1, max_args=-1):
+        """Constructor function
+
+        Args:
+            debugger: Debugger instance
+            cmd_name: Command full name
+            min_args: Minimum arguments number, if equals -1, no limit
+            max_args: Maximum arguments number, if equals -1, no limit
+        """
+        self.min_arg = min_args
+        self.max_arg = max_args
+        self.debugger = debugger
+        self.cmd_name = cmd_name
+
+    @staticmethod
+    def split_cmdline(cmdline):
+        WHITE_WORD = 0
+        WORD_START = 1
+        QUOTATION_START = 2
+
+        args = list()
+        state = WHITE_WORD
+        word_start = -1
+        i = 0
+        while i < len(cmdline):
+            if state == WHITE_WORD:
+                if cmdline[i] == "\"":
+                    state = QUOTATION_START
+                    word_start = i
+                else:
+                    state = WORD_START
+                    word_start = i
+                i += 1
+            elif state == QUOTATION_START:
+                if cmdline[i] == "\"":
+                    new_arg = cmdline[word_start+1:i]
+                    args.append(new_arg)
+                    state = WHITE_WORD
+                i += 1
+
+            elif state == WORD_START:
+                if cmdline[i] == " ":
+                    new_arg = cmdline[word_start:i]
+                    args.append(new_arg)
+                    state = WHITE_WORD
+                i += 1
+
+        if state == QUOTATION_START:
+            log.error("Wrong quotation in cmdline")
+            return None
+
+        elif state == WORD_START:
+            args.append(cmdline[word_start:])
+
+        return args
+
+    def execute(self, *args):
+        """ subclass need to overwrite this method """
+        pass
+
+    def command_help(self):
+        print("not enough argument")
+
+    def run(self, cmdline):
+        args = ()
+        if self.max_arg > 0 or self.max_arg == -1:
+            args = Command.split_cmdline(cmdline)
+            if args is None:
+                return False
+
+        # remove command start string
+        args = args[1:]
+        if self.min_arg > 0 and len(args) < self.min_arg \
+                or len(args) > self.max_arg:
+            self.command_help()
+            return True
+
+        self.execute(*args)
+
+    def get_name(self):
+        return self.cmd_name
+
+    def has_alias(self):
+        return hasattr(self, "alias")
+
+    def get_alias(self):
+        return self.alias
+
+
+class Breakpoint(Command):
+    """command break
+
+    Function: set breakpoint
+    """
+    def __init__(self, debugger):
+        super(Breakpoint, self).__init__(debugger, "break", min_args=1, max_args=1)
+
+    def command_help(self):
+        msg = "Usage:\n"
+        msg += "    break address"
+        print(msg)
+
+    def execute(self, address):
+        addr = str2int(address)
+        self.debugger.breakpoints[addr] = True
+
+
+class NextInstruction(Command):
+    """command nexti
+
+    Function: run a single instruction, works like gdb command "nexti"
+    """
+    def __init__(self, debugger):
+        super(NextInstruction, self).__init__(debugger, "nexti", max_args=1)
+        self.alias = "ni"
+
+    def command_help(self):
+        msg = "Usage:\n" \
+              "    next\n" \
+              "    next n[times]\n" \
+              "Alias:\n" \
+              "    ni"
+        print(msg)
+
+    def execute(self, steps=-1):
+        if steps > 0:
+            result = None
+            for i in range(steps):
+                result = self.debugger.process()
+        else:
+            result = self.debugger.process()
+
+        return result
+
+
+class StepInstruction(Command):
+    """command stepi
+
+    Function: run a single instruction, works like gdb command "stepi"
+    """
+    def __init__(self, debugger):
+        super(StepInstruction, self).__init__(debugger, "stepi", max_args=1)
+        self.alias = "si"
+
+    def command_help(self):
+        msg = "Usage:\n" \
+              "    stepi\n" \
+              "    steps n[times]\n" \
+              "Alias:\n" \
+              "    si"
+        print(msg)
+
+    def execute(self, steps=-1):
+        if steps > 0:
+            result = None
+            for i in range(steps):
+                result = self.debugger.process()
+        else:
+            result = self.debugger.process()
+
+        return result
+
+
+class ListInfo(Command):
+    """command list
+
+    Function: list target information
+    """
+    def __init__(self, debugger):
+        super(ListInfo, self).__init__(debugger, "list", min_args=1, max_args=1)
+
+    def command_help(self):
+        msg = "Usage:\n" \
+              "    list break"
+        print(msg)
+
+    def list_breakpoint(self):
+        for addr, enabled in self.debugger.breakpoints.items():
+            if enabled:
+                print 'breakpoint at %s is enabled' % hex(addr).strip('L')
+            else:
+                print 'breakpoint at %s is disabled' % hex(addr).strip('L')
+
+    def execute(self, target):
+        if target == "break":
+            self.list_breakpoint()
+            return True
+
+
+class ContinueRun(Command):
+    """command continue
+
+    Function: resume program running
+    """
+    def __init__(self, debugger):
+        super(ContinueRun, self).__init__(debugger, "continue", max_args=0)
+        self.alias = "c"
+
+    def command_help(self):
+        msg = "Usage: \n" \
+              "    continue\n" \
+              "Alias:\n" \
+              "    c"
+        print(msg)
+
+    def execute(self):
+        self.debugger.stopped = False
+        return True
+
+
+class Show(Command):
+    """command show
+
+    Function: show information for register, stack, code
+    """
+    def __init__(self, debugger):
+        super(Show, self).__init__(debugger, "show", min_args=1, max_args=1)
+
+    def command_help(self):
+        msg = "Usage:\n" \
+              "    show register\n" \
+              "    show stack\n" \
+              "    show code\n" \
+              "    show all"
+        print(msg)
+
+    def execute(self, target, *args):
+        if target == "register":
+            self.debugger.show_register()
+        elif target == "stack":
+            self.debugger.show_stack()
+        elif target == "code":
+            self.debugger.show_code(args[0])
+        elif target == "all":
+            self.debugger.show_all(self.debugger.getpc())
+        return True
+
+
+class Register(Command):
+    """command register
+
+    Function: show information for register, equal to command "show register"
+    """
+    def __init__(self, debugger):
+        super(Register, self).__init__(debugger, "register", min_args=0, max_args=1)
+        self.alias = "reg"
+
+    def execute(self):
+        self.debugger.show_register()
+        return True
+
+
+class Disasm(Command):
+    """command disasm
+
+    Function: show information for code
+    """
+    def __init__(self, debugger):
+        super(Disasm, self).__init__(debugger, "disasm", min_args=0, max_args=1)
+
+    def execute(self):
+        self.debugger.show_code()
+        return True
+
+
+class Stack(Command):
+    """command disasm
+
+    Function: show information for stack
+    """
+    def __init__(self, debugger):
+        super(Stack, self).__init__(debugger, "stack", max_args=1)
+
+    def execute(self):
+        self.debugger.show_stack()
+        return True
+
+
+class Xinfo(Command):
+    """command xinfo
+
+    Function: examine data of target address
+    """
+    def __init__(self, debugger):
+        super(Xinfo, self).__init__(debugger, "xinfo", min_args=1, max_args=3)
+        self.alias = "x"
+
+    """ self-defined function for command xinfo """
+    def xinfo(self, address, show_format, length=1):
+        if show_format == 'hex':
+            if self.debugger.arch == ARCH.X86:
+                for i in range(length):
+                    addr = address + i * 4
+                    print('0x%x:  0x%x' % (addr, self.debugger.getuint32(addr)))
+            elif self.debugger.arch == ARCH.X86_64:
+                for i in range(length):
+                    addr = address + i * 8
+                    print('0x%x:  0x%x' % (addr, self.debugger.getuint64(addr)))
+            else:
+                raise UnsupportedArchException(self.debugger.arch)
+
+        elif show_format == 'string':
+            content = self.debugger.get_memory_string(address)
+            print('0x%x: "%s"' % (address, content))
+
+    def execute(self, address, option='-hex', length=1):
+        address = str2int(address)
+        if option in ['-s', '-string']:
+            self.xinfo(address, 'string')
+        elif option in ['-h', '-hex']:
+            self.xinfo(address, "hex", length)
+        else:
+            print("Unknown option")
+            return False
+
+        return True
+
+
 class Debugger(Emulator):
     """Debug class for Emulator
 
     Attributes:
-        show_inst 
-        show_output
+        show_inst:       boolean, whether to print executed instruction
+        show_output:     boolean, whether to print program console output
 
-        breakpoints
-        nextpc
-        stopped
-        last_cmd
+        breakpoints:     a dict, store breakpoints information
+        nextpc:          a integer, stores address of next instruction
+        stopped:         boolean, whether to  stopped at next instruction
+        last_cmd:        a string, last executed command
     """
 
-    def __init__(self, binary, dumpfile=''):
+    def __init__(self, *args, **kwargs):
 
-        super(Debugger, self).__init__(binary, dumpfile)
+        super(Debugger, self).__init__(*args, **kwargs)
         
         self.show_inst = True
         self.show_output = True
         
         self.breakpoints = {}
         self.nextpc = None
-        self.stopped = True      # whether to stop at next instruction
+        self.stopped = True
         self.last_cmd = ''
 
+        self.support_command = {}
+        self.register_command(Breakpoint(self))
+        self.register_command(NextInstruction(self))
+        self.register_command(StepInstruction(self))
+        self.register_command(ListInfo(self))
+        self.register_command(ContinueRun(self))
+        self.register_command(Show(self))
+        self.register_command(Xinfo(self))
+        self.register_command(Register(self))
+        self.register_command(Stack(self))
+        self.register_command(Disasm(self))
 
     """
-    self-defined function for command reg
+    check breakpoint status
     """
+    def _check_breakpoint(self, pc):
+        if not self.breakpoints.has_key(pc):
+            return False
+        elif self.breakpoints[pc] is True:
+            return True
+        return False
+
+    # register a command
+    def register_command(self, command):
+        name = command.get_name()
+        for i in range(len(name)):
+            cmd_abbr = name[:i+1]
+            if cmd_abbr not in self.support_command:
+                self.support_command[cmd_abbr] = {}
+
+            cmd_info = self.support_command[cmd_abbr]
+            if 'available' not in cmd_info:
+                cmd_info['available'] = []
+
+            cmd_info['available'].append(command)
+
+        if command.has_alias():
+            alias = command.get_alias()
+            if alias not in self.support_command:
+                self.support_command[alias] = {}
+
+            cmd_info = self.support_command[alias]
+            if 'available' not in cmd_info:
+                cmd_info['available'] = []
+
+            if command not in cmd_info['available']:
+                cmd_info['available'].append(command)
+
+    """ self-defined function for command show register """
     def show_register(self):
-        if self.arch == 'x86':
-            reg_list = ['eax', 'ebx', 'ecx', 'edx', 'edi', 'esi', 'ebp', 'esp', 'eip']
-
-        elif self.arch == 'x64':
-            reg_list = ['rax', 'rbx', 'rcx', 'rdx', 'rdi', 'rsi', 'rbp', 'rsp', 
-                'rip', 'r8', 'r9', 'r10', 'r11', 'r12', 'r13', 'r14']
-
-        else:
-            raise UnsupportArchException(self.arch)
-
+        print '-'* 25 + ' register ' + '-'*25
+        reg_list = EmuConstant.RegisterList[self.arch]
         for reg in reg_list:
-            value = self.getreg(reg) 
+            value = self.getreg(reg)
             print '%s: %s' % (reg.rjust(3, ' '), hex(value).strip('L'))
 
-
-    """
-    self-defined function for command stack
-    """
+    """ self-defined function for command show stack """
     def show_stack(self, size=10):
-        if self.arch == 'x86':
+        print('-'* 25 + '   stack  ' + '-'*25)
+        if self.arch == ARCH.X86:
             esp = self.getreg('esp')
             for i in range(size):
-                value = self.getuint32(esp+i*4) 
+                value = self.getuint32(esp+i*4)
                 print '0x%x:  ' % (esp+i*4) + hex(value).strip('L')
 
-        elif self.arch == 'x64':
+        elif self.arch == ARCH.X86_64:
             rsp = self.getreg('rsp')
             for i in range(size):
-                value = self.getuint64(rsp+i*8) 
+                value = self.getuint64(rsp+i*8)
                 print '0x%x:  ' % (rsp+i*8) + hex(value).strip('L')
 
         else:
-            raise UnsupportArchException(self.arch)
+            raise UnsupportedArchException(self.arch)
 
-        # elif Triton.getArchitecture() == ARCH.X86_64:
-        #     rsp = Triton.getConcreteRegisterValue(Triton.registers.rsp)
-        #     for i in range(10):
-        #         value = Triton.getConcreteMemoryValue(MemoryAccess(rsp+i*8, CPUSIZE.QWORD))
-        #         print '0x%x:  ' % (rsp + i*8) + hex(value).strip('L')
+    """ self-defined function for command show code """
+    def show_code(self, pc, lines=5):
+        print '-'* 25 + '   code   ' + '-'*25
+        opcode = self.get_memory(pc, 1024)
+        lines = disasm(opcode, arch=EmuConstant.SUPPORT_ARCH[self.arch]).splitlines()[:lines]
+        for line in lines:
+            if line.find(":") != -1:
+                pos = line.find(":")
+                addr, disasm_code = line[:pos], line[pos:]
+                reloc_addr = pc + int(addr, 16)
+                print(hex(reloc_addr) + disasm_code)
 
+    def show_all(self, pc):
+        self.show_register()
+        self.show_code(pc)
+        self.show_stack()
 
-    """
-    self-defined function for command x
-    """
-    def memory_x(self, cmd):
+    @staticmethod
+    def info_unknown_cmd():
+        print("Unknown command, check it")
 
-        Triton = self.triton
-        args = cmd.split(' ')[1:]
+    def info_uncertain_cmd(self, cmd):
+        msg = "Are you typing:\n"
+        for command in self.support_command[cmd]:
+            msg += command + " "
+        print(msg)
 
-        if len(args) == 1:
-
-            addr = int(args[0], 16)
-            if self.arch == 'x86':
-                value = self.getuint32(addr) 
-
-            else:
-                raise UnsupportArchException(self.arch)
-
-            print '0x%x:  ' % addr + hex(value).strip('L')
-
-        elif len(args) == 2 and args[1] == '-s':
-
-            addr = int(args[0], 16)
-            content = self.getMemoryString(addr)
-            print '0x%x: "%s"' % (addr, content) 
-
-    
-    """
-    self-define function for command break
-    """
-    def set_breakpoint(self, addr):
-        self.breakpoints[addr] = True
-
-    """
-    self-define function for command listbreak
-    """
-    def list_breakpoint(self):
-        for addr, enabled in self.breakpoints.items():
-            if enabled:
-                print 'breapoint at %s is enabled' % hex(addr).strip('L')
-            else: 
-                print 'breapoint at %s is disabled' % hex(addr).strip('L')
-
-
-    """
-    breakpint function
-    """
-    def del_breakpoint(self, cmd):
-        addr = int(cmd.split(' ')[1], 16)
-        self.breakpoints[addr] = False
-
-
-    """
-    self-defined function for command next
-    """
-    def next_instruction(self):
-        pass
-
-
-    """
-    self-defined function for command step
-    """
-    def step_instruction(self):
-        pass
-
-    
     """
     Parse user_input command and stop at breakpoints
     Probably like a debugger
@@ -163,32 +480,11 @@ class Debugger(Emulator):
         """
         pc = self.getpc()
 
-        def check_breakpoint(pc):
-            if not self.breakpoints.has_key(pc):
-                return False
-            elif self.breakpoints[pc] is True:
-                return True
-            return False
+        if self.stopped or self._check_breakpoint(pc):
+            if self.last_cmd in ['ni', 'nexti', 'c', 'continue', 'stepi', 'si']:
+                self.show_all(pc)
 
-        if self.stopped or check_breakpoint(pc):
-            
-            if self.last_cmd in ['ni', 'c']: 
-                print '-'* 25 + ' register ' + '-'*25
-                self.show_register()
-
-                print '-'* 25 + '   code   ' + '-'*25
-                opcode = self.getMemory(pc, 32)
-                lines = disasm(opcode).splitlines()
-                for i in range(5):
-                    line = lines[i]
-                    addr, disasm_code = line[:line.index(":")], line[line.index(":"):]
-                    new_addr = pc + int(addr, 16)
-                    print hex(new_addr) + disasm_code
-
-                print '-'* 25 + '   stack  ' + '-'*25
-                self.show_stack()
-
-            if check_breakpoint(pc):
+            if self._check_breakpoint(pc):
                 print 'Breakpoint at ' + hex(pc).strip('L')
                 self.stopped = True
 
@@ -201,59 +497,24 @@ class Debugger(Emulator):
                         cmd = raw_input("> ").strip('\n')
 
             self.last_cmd = cmd.split(' ')[0]
-
-            if cmd.startswith('b ') or cmd.startswith('break '):
-                addr = int(cmd.split(' ')[1], 16)
-                self.set_breakpoint(addr)
-                return pc
-
-            elif cmd in ['continue', 'c']:
-                self.stopped = False
-                return self.process() 
-            
-            elif cmd.startswith('db'):
-                self.del_breakpoint(cmd)
-                return pc
-
-            elif cmd in ['listbreak', 'lb']:
-                self.list_breakpoint()
-                return pc
-
-            elif cmd in ['next', 'n', 'ni']:
-                return self.process()
-
-            elif cmd in ['reg', 're', 'r']:
-                self.show_register()
-                return pc               
-
-            elif cmd == 'stack':
-                self.show_stack()
-                return pc               
-
-            elif cmd.startswith('x '):
-                self.memory_x(cmd)
-                return pc               
+            if self.last_cmd in self.support_command:
+                if len(self.support_command[self.last_cmd]) > 1:
+                    self.info_uncertain_cmd(self.last_cmd)
+                else:
+                    cmd_info = self.support_command[self.last_cmd]
+                    cmd_handler = cmd_info['available'][0]
+                    return cmd_handler.run(cmd)
 
             else:
-                print 'unknown command'
+                Debugger.info_unknown_cmd()
                 return pc
 
         else:
             return self.process()
 
-
-    """
-    Ok, everything is prepared, just go and debug
-    """
     def debug(self):
-        self.initialize()
-
+        """ Ok, everything is prepared, start debugging """
         log.info("Start debugging")
-
-        pc = self.getpc()
-        self.lastInstType = None
-
-        while pc:    
-            pc = self.parse_command(pc)
+        while self.is_running():
+            self.parse_command()
         log.info("Debugging done")
-        return

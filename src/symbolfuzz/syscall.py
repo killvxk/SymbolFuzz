@@ -5,16 +5,14 @@ Module Name: Syscall Helper
 Create by  : Bluecake
 """
 
-import os, sys
+from triton import ARCH
 from pwn import log
 from utils import *
 from basic import *
 
 
-
 class Syscall(Basic):
     """Program syscall interface
-
 
     This module doesn't actually implement any real syscall
     but works as a filter. Real work is done by callback handlers.
@@ -33,14 +31,16 @@ class Syscall(Basic):
         """
         super(Syscall, self).__init__()
 
-        if arch == 'x86':
+        if arch == ARCH.X86:
             import i386_syscall as SYS
+        elif arch == ARCH.X86_64:
+            import amd64_syscall as SYS
         else:
-            raise UnsupportArchException(arch)
+            raise UnsupportedArchException(arch)
 
         self.systable = {}
 
-        hook_syscall = ['exit', 'exit_group', 'fstat64', 'read', 'write', ]
+        hook_syscall = ['exit', 'exit_group', 'read', 'write', ]
         for aSyscall in hook_syscall:
             constant = getattr(SYS, 'SYS_' + aSyscall)
             handler = getattr(self, 'syscall_' + aSyscall)

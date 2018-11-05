@@ -4,63 +4,26 @@
 """
 Module Name: Emulator.py
 Create by  : Bluecake
-Description: A tool for x86 and x86_64 program emulate
+Description: Kernel class for x86 and x86_64 program emulate
 """
 
-from pwn import log, asm, context, ELF, process, gdb
+from triton import TritonContext, ARCH, MemoryAccess, Instruction, MODE, CALLBACK, OPCODE
+from pwn import asm, context, ELF, process, pack
+from static import EmuConstant
 from syscall import *
-from triton import * 
 from utils import *
 import subprocess
+import json
 import tempfile
-import os, sys
-import string
-import lief
-import time
+import os
 
 from basic import *
-import gc
 
 
-
-###############################################################################
-#                          Emulation Exception                                #
-###############################################################################
-class IllegalPcException(Exception):
-    def __init__(self, arch, pc):
-        if arch == 'x86':
-            Exception.__init__(self, "Eip address [0x%x] is illegal" % pc)
-        else:
-            raise UnsupportArchException(arch)
-
-
-class IllegalInstException(Exception):
-    def __init__(self, arch, pc):
-        if arch == 'x86':
-            Exception.__init__(self, "Instruction at [0x%x] is illegal" % pc)
-        else:
-            raise UnsupportArchException(arch)
-
-
-class InfinityLoopException(Exception):
-    def __init__(self, arch, pc):
-        if arch == 'x86':
-            Exception.__init__(self, "Encounter inifinity instruction at 0x%x" % pc)
-        else:
-            raise UnsupportArchException(arch)
-
-
-class MemoryAccessException(Exception):
-    def __init__(self, pc, addr):
-        Exception.__init__(self, "Invalid memory [0x%x] access instruction at 0x%x" % (addr, pc))
-
-############################################################################### 
-#                                  Main Class                                 #
-###############################################################################
 class Emulator(Basic):
     """Basic program interpreter
 
-    This is the basic program interpreter. It provoide interfaces 
+    This is the basic program interpreter. It provides interfaces
     to emulate program running
 
     Attributes:
@@ -88,7 +51,7 @@ class Emulator(Basic):
 
         callbacks: A dict, callback functions for syscalls,
 
-        opcodeCache: A dict, stores the the map of assembly code
+        assembly_cache: A dict, stores the the map of assembly code
                 and binary code.  Format is like 
                 {
                     'arch':
@@ -98,70 +61,115 @@ class Emulator(Basic):
                         }
                 }
 
-        opcodeCacheFile: A string, stores the path of opcodeCache 
+        assembly_cache_file: A string, stores the path of opcodeCache
                 dict.
 
         running: A boolean value, true means the program is active.
 
-        syscallFail: A boolean value, false means last syscall
+        syscall_fail: A boolean value, false means last syscall
                 failed.
-        
     """
 
-    def __init__(self, binary, dumpfile=""):
-        """Emulator Constructor
-        
+    def __init__(self, mode, arch=EmuConstant.UNKNOWN_ARCH, code="", assembly=None, code_start=-1,
+                 register=None, binary=None, dumpfile=None):
+        """ Emulator Constructor Method
+            Here we support two mode.
+            MODE_ELF:  load code from .text segment of ELF binary file.
+            MODE_CODE: load binary code from argument(a string)
+
         Args:
-            binary:     path of executable binary 
+            mode:       initialize mode
+            code:       when mode is MODE_CODE, it's a string which stores
+                        assembly code or binary code
+            assembly:   a boolean value, indicating code mode
+                        if true, code should be assembly code like "mov eax, 1"
+                        if false, binary code should be passed
+            code_start:   an integer, stores address of code
+            register:   a dict, stores the value of needed register
+            binary:     when mode is MODE_ELF, it's path of executable binary
             dumpfile:   path of memory snapshot file
         """
         super(Emulator, self).__init__()
-
-        self.binary = binary
-        self.dumpfile = dumpfile
-        self.show_inst = True
-        self.show_output = True
+        self.mode = mode
+        self.triton = TritonContext()
+        self.last_inst_type = OPCODE.JMP
+        self.memory_cache = list()
         self.memAccessCheck = False
-        self.memoryAccessError = False
-        
-        self.root_dir = os.path.dirname(__file__)
+        self.before_process_callbacks = []
+        self.after_process_callbacks = []
 
-        # elf = ELF(binary)
-        # if elf.get_machine_arch() in ['x86', 'i386']:
-        #     self.arch = 'x86'
-        # del elf
-        self.arch = 'x86'
+        self.add_before_process_callback(self.check_dead_loop)
 
-        SupportedArch = ['x86']
-        if self.arch not in SupportedArch:
-            raise UnsupportArchException(self.arch)
-        
-        if self.arch == 'x86':
-            context.arch = 'i386'
+        if mode == EmuConstant.MODE_CODE:
+            self.arch = arch
+            if self.arch == EmuConstant.UNKNOWN_ARCH:
+                raise Exception("Unknown exception")
+
+            if assembly:
+                self.code = self.asm(code)
+            else:
+                self.code = code
+
+            self.code_start = code_start
+            self.register = register
+            self.init_with_code()
+
+        elif mode == EmuConstant.MODE_ELF:
+            self.binary = binary
+            self.dumpfile = dumpfile
+            self.show_inst = True
+            self.show_output = True
+            self.memoryAccessError = False
+
+            self.root_dir = os.path.dirname(__file__)
+
+            elf = ELF(binary)
+            if elf.get_machine_arch() == ['x86', 'i386']:
+                self.arch = ARCH.X86
+            elif elf.get_machine_arch() == ['x86_64', 'amd64']:
+                self.arch = ARCH.X86_64
+
+            self.assembly_cache_file = "/tmp/AssemblyCache.txt"
+            if os.path.exists(self.assembly_cache_file):
+                try:
+                    f = open(self.assembly_cache_file)
+                    self.assembly_cache = json.loads(f.read())
+
+                except Exception as e:
+                    log.debug(e)
+                    self.assembly_cache = {self.arch: {}}
+
+            else:
+                self.assembly_cache = {self.arch: {}}
+
+            self.init_with_binary()
+
+        else:
+            raise UnknownEmulatorMode()
 
         self.read_count = 0
         self.last_pc = 0
         self.inst_count = 0
-        self.syshook = Syscall(self.arch)
-        
-        self.opcodeCacheFile = "/tmp/OpcodeCache.txt"
-        if os.path.exists(self.opcodeCacheFile):
-            try:
-                f = open(self.opcodeCacheFile)
-                self.opcodeCache = eval(f.read())
-            
-            except Exception as e:
-                log.debug(e)
-                self.opcodeCache = { self.arch: {} }
-
-        else:
-            self.opcodeCache = { self.arch: {} }
-
-        self.memoryCache = list() 
 
         self.running = True
-        self.syscallFail = False
+        self.syscall_fail = False
         self.callbacks = {}
+
+        self.syshook = Syscall(self.arch)
+        self.syshook.add_callback("read", self.callback_read)
+        self.syshook.add_callback("write", self.callback_write)
+        self.syshook.add_callback("exit", self.callback_exit)
+        self.syshook.add_callback("exit_group", self.callback_exit)
+        self.syshook.add_callback("fstat64", self.callback_fstat64)
+        self.syshook.add_callback("unsupported", self.callback_unsupported)
+
+    def is_supported(self, arch):
+        if arch not in self.supported_arch:
+            return False
+        return True
+
+    def is_running(self):
+        return self.running
 
     def snapshot(self, seed='', dumpfile=''):
         """Automatically take memory snapshot on the entrypoint of main()
@@ -181,26 +189,7 @@ class Emulator(Basic):
 
         _, debug_file = tempfile.mkstemp()
         peda_path = "/usr/share/peda/peda.py"
-        # type_path = self.root_dir + '/type'
-        # elf = lief.parse(self.binary) 
 
-        # with open(debug_file, 'w') as f:
-        #     content = "source %s\n" \
-        #             "break * 0x%x\n" \
-        #             "start\n" \
-        #             "nextcall\n" \
-        #             "add-symbol-file %s 0\n%s\n" \
-        #             "continue\nfulldump %s\n" \
-        #             "quit\n"
-        #     if self.arch == 'x86':
-        #         breakpoint = "break * *(uint32_t)$esp"
-
-        #     else:
-        #         breakpoint = "break * $rdi"
-
-        #     content = content % (peda_path, elf.entrypoint, type_path, breakpoint, self.dumpfile)
-        #     f.write(content)
-        
         with open(debug_file, 'w') as f:
             content = "source %s\n" \
                     "set $eax=3\n" \
@@ -221,12 +210,11 @@ class Emulator(Basic):
 
             # Run gdb and dump memory with patched peda
             subprocess.check_output(cmd, shell=True, stderr=None)
-            # os.system(cmd)
             p.close()
 
         except Exception as e:
             print e
-    
+
     def setreg(self, reg, value):
         """Set targeted register
 
@@ -249,48 +237,37 @@ class Emulator(Basic):
             If arch is x64, it should return a uint64 value.
 
         """
-        Triton = self.triton
-        return eval('Triton.getConcreteRegisterValue(Triton.registers.%s)' % (reg,))
+        return eval('self.triton.getConcreteRegisterValue(self.triton.registers.%s)' % (reg,))
 
-
-    
     def setpc(self, address):
         """ Set new pc address
 
         Args:
-            value: new pc address
+            address: new pc address
         """
 
-        if self.arch == 'x86':
-            return self.setreg('eip', address)
-
-        elif self.arch == 'x64':
-            return self.setreg('rip', address)
-
+        if self.arch in EmuConstant.SUPPORT_ARCH:
+            return self.setreg(EmuConstant.RegisterTable[self.arch]["pc"], address)
         else:
-            raise UnsupportArchException(self.arch)
-
+            raise UnsupportedArchException(self.arch)
 
     def getpc(self):
         """Retrieve current PC address
 
         Return:
-            uin32 or uint64, current pc address
+            uint32 or uint64, current pc address
         """
-        if self.arch == 'x86':
-            return self.getreg('eip')
-
-        elif self.arch == 'x64':
-            return self.getreg('rip')
+        if self.arch in EmuConstant.SUPPORT_ARCH:
+            return self.getreg(EmuConstant.RegisterTable[self.arch]['pc'])
 
         else:
-            raise UnsupportArchException(self.arch)
+            raise UnsupportedArchException(self.arch)
 
-    def getMemoryString(self, addr):
+    def get_memory_string(self, address):
         """Retrieve string terminated with null byte
         
         Args:
-            addr: memory address 
+            address: memory address
 
         Return:
             A string, stored in targeted memory
@@ -299,64 +276,62 @@ class Emulator(Basic):
 
         s = ""
         index = 0
-        while Triton.getConcreteMemoryValue(addr + index):
-            c = chr(Triton.getConcreteMemoryValue(addr + index))
+        while Triton.getConcreteMemoryValue(address + index):
+            c = chr(Triton.getConcreteMemoryValue(address + index))
             if c == '\x00': 
                 break
             s += c
             index += 1
         return s
 
-    def getMemory(self, addr, size):
+    def get_memory(self, address, size):
         """ Retrieve a block of data 
         
         Args:
-            addr: memory address you want to read from
+            address: memory address you want to read from
             size: size of bytes you want to read
 
         Return:
-            A string, memory content of targeted address
+            A string, memory content of target address
         """
-        return self.triton.getConcreteMemoryAreaValue(addr, size)
+        return self.triton.getConcreteMemoryAreaValue(address, size)
     
-    def writeMemory(self, addr, content):
+    def set_memory(self, address, content):
         """Write data into memory
 
         Args:
-            addr: memory address to write
+            address: memory address to write
             content: content to be written into memory
         """
 
         if type(content) == int or type(content) == long:
 
             if self.arch == 'x86':
-                mem = MemoryAccess(addr, 4)
+                mem = MemoryAccess(address, 4)
 
                 # Due to the memory cache mechanism, make the 
                 # target memory area mapped first. 
-                if not self.triton.isMemoryMapped(addr):
+                if not self.triton.isMemoryMapped(address):
                     self.triton.getConcreteMemoryValue(mem)
 
                 self.triton.setConcreteMemoryValue(mem, content)
 
             elif self.arch == 'x64':
-                mem = MemoryAccess(addr, 8)
+                mem = MemoryAccess(address, 8)
 
-                if not self.triton.isMemoryMapped(addr):
+                if not self.triton.isMemoryMapped(address):
                     self.triton.getConcreteMemoryValue(mem)
 
                 self.triton.setConcreteMemoryValue(mem, content)
 
         else:
             offset = 0
-            while offset < len(content) :
-                if not self.triton.isMemoryMapped(addr + offset):
-                    MemoryAccess(addr + offset, 0x40)
+            while offset < len(content):
+                if not self.triton.isMemoryMapped(address + offset):
+                    MemoryAccess(address + offset, 0x40)
                 offset += 0x40
 
-            self.triton.setConcreteMemoryAreaValue(addr, content)
-
-            
+            self.triton.setConcreteMemoryAreaValue(address, content)
 
     def getuint32(self, addr):
         """Retrieve uint32 value of target address
@@ -383,9 +358,16 @@ class Emulator(Basic):
         mem = MemoryAccess(addr, 8)
         self.triton.concretizeMemory(mem)
         return self.triton.getConcreteMemoryValue(mem)
-    
+
+    @staticmethod
+    def asm(instruction, arch):
+        if arch in EmuConstant.SUPPORT_ARCH:
+            return asm(instruction, arch=EmuConstant.SUPPORT_ARCH[arch])
+        else:
+            raise UnsupportedArchException(EmuConstant.SUPPORT_ARCH[arch])
+
     def asm(self, code):
-        """Return assemble code
+        """Return binary code
 
         Args:
             code: A string, assembly code like 'mov eax, ebx'
@@ -393,15 +375,18 @@ class Emulator(Basic):
         Return:
             A String, binary code compiled with pwn.asm()
         """
-        
-        if code not in self.opcodeCache[self.arch]:
-            bincode = asm(code)
-            self.opcodeCache[self.arch][code] = bincode
+        if hasattr(self, "assembly_cache"):
+            if self.assembly_cache and code not in self.assembly_cache[self.arch]:
+                bincode = asm(code, arch=EmuConstant.SUPPORT_ARCH[self.arch])
+                self.assembly_cache[self.arch][code] = bincode
 
-            with open(self.opcodeCacheFile, 'wb') as f:
-                f.write(repr(self.opcodeCache))
-        
-        return self.opcodeCache[self.arch][code]
+                with open(self.assembly_cache, 'wb') as f:
+                    f.write(repr(self.assembly_cache))
+
+            return self.assembly_cache[self.arch][code]
+
+        else:
+            return asm(code, arch=EmuConstant.SUPPORT_ARCH[self.arch])
 
     def load_dump(self):
         """Recover memory, registers with dumpfile"""
@@ -421,15 +406,15 @@ class Emulator(Basic):
 
         context.arch = 'i386'
 
-        # Load memory into memoryCache
+        # Load memory into memory_cache
         log.debug('Define memory areas')
         for mem in mems:
             start = mem['start']
-            end   = mem['end']
-            name  = mem['name']
+            end = mem['end']
+            name = mem['name']
             log.debug('Memory caching %x-%x' %(start, end))
             if mem['memory']:
-                self.memoryCache.append({
+                self.memory_cache.append({
                     'start':  start,
                     'size':   end - start,
                     'memory': mem['memory'],
@@ -437,11 +422,10 @@ class Emulator(Basic):
                 })
 
         # Make sure to restore gs register first
-        from pwn import u32
         self.setreg('gs', regs['gs'])
         for i in range(7):
             log.debug('Restore gs[0x%x]' % (i*4))
-            v = u32(self.getMemory(gs_8 + i*4, 4))
+            v = pack.u32(self.get_memory(gs_8 + i*4, 4))
             write_gs = ['mov eax, %s' % hex(v), 'mov gs:[%d], eax' % (i*4)]
             for inst in write_gs:
                 asm_code = self.asm(inst)
@@ -458,15 +442,15 @@ class Emulator(Basic):
 
         return       
 
-    def memoryCaching(self, triton, mem):
+    def memory_caching(self, triton, mem):
         """Callback: Speed up the procedure of load_dump"""
 
         addr = mem.getAddress()
         size = mem.getSize()
-        # print "memoryCache is called", hex(addr), hex(size)
+        # print "memory_cache is called", hex(addr), hex(size)
         for index in range(size):
             if not triton.isMemoryMapped(addr, size):
-                for m in self.memoryCache:
+                for m in self.memory_cache:
                     if addr >= m['start'] and addr + size < m['start'] + m['size']:
                         # print 'memory check successful'
                         offset = addr - m['start']
@@ -474,37 +458,51 @@ class Emulator(Basic):
                         triton.setConcreteMemoryAreaValue(addr, value)
                         return
 
-        # not stable, be careful to use it
-        if self.memAccessCheck and not self.isAddress(addr):
+        if self.memAccessCheck and not self.is_address(addr):
+            log.warn("Not stable, be careful to use memAccessCheck")
             pc = self.getpc()
             self.memoryAccessError = (pc, addr)
             self.running = False
 
         return   
 
-    # def checkAccess(self, switch):
-    #     """Switch to checking memory access address
+    def checkAccess(self, switch):
+        """Switch to checking memory access address
 
-    #     Args:
-    #         switch: boolean, if True, do memory access check
-    #     """
-    #     self.memAccessCheck = switch
+        Args:
+            switch: boolean, if True, do memory access check
+        """
+        self.memAccessCheck = switch
 
-    def isAddress(self, addr):
+    def is_address(self, pc):
         """Check whether a specific address is a valid address
         
         Args:
-            addr: instruction address
+            pc: instruction address
 
         Return:
             boolean, true is valid, false is invalid.
         """
 
-        for m in self.memoryCache:
-            if addr >= m['start'] and addr < m['start'] + m['size']:
+        for m in self.memory_cache:
+            if m['start'] < pc < m['start'] + m['size']:
                 return True
         return False 
-    
+
+    def is_executable(self, pc):
+        """Check whether specific address has execute privilege
+
+        Args:
+            pc: instruction address
+
+        Returns:
+            boolean, true is executable, false is non-executable.
+
+        """
+        for m in self.memory_cache:
+            if m['start'] < pc < m['start'] + m['size'] and m['executable']:
+                return True
+        return False
 
     def callback_read(self, fd, addr, length):
         """Callback for syscall read"""
@@ -518,7 +516,7 @@ class Emulator(Basic):
         if length > 0x100000:
             length = 0x100000
 
-        if not self.isAddress(addr):
+        if not self.is_address(addr):
             self.running = False
             return 0
 
@@ -553,7 +551,7 @@ class Emulator(Basic):
                 else:
                     content = content[:length]
 
-        # read data from opened file
+        # read data from existed file descriptor
         else:
             content = os.read(fd,  length)
         
@@ -587,7 +585,7 @@ class Emulator(Basic):
         if 'write_before' in self.callbacks:
             self.callbacks['write_before'](self, fd, addr, length)
 
-        if not self.isAddress(addr):
+        if not self.is_address(addr):
             log.warn('[callback_write] Invalid target memory address ' + hex(addr))
         
         # Check fd, may cause other problem, but just do it.
@@ -600,7 +598,7 @@ class Emulator(Basic):
             self.running = False
             return 0
 
-        content = self.getMemory(addr, length)
+        content = self.get_memory(addr, length)
 
         if self.show_output:
             os.write(fd, content)
@@ -610,7 +608,6 @@ class Emulator(Basic):
         if 'write_after' in self.callbacks:
             self.callbacks['write_after'](self, fd, addr, length)
         return len(content)
-
 
     def callback_exit(self, exit_value):
         """Callback for syscall exit and exit_group"""
@@ -631,16 +628,32 @@ class Emulator(Basic):
         if 'noImplementSys' in self.callbacks:
             self.callbacks['noImplementSys'](self, *args)
 
-    
-    def initialize(self):
-        """Prepare everything before starting emulate"""
+    def init_with_code(self):
+        self.triton.setArchitecture(self.arch)
+
+        # Define symbolic optimizations
+        self.triton.enableMode(MODE.ALIGNED_MEMORY, True)
+        self.triton.enableMode(MODE.ONLY_ON_SYMBOLIZED, True)
+
+        # Define internal callbacks.
+        self.triton.addCallback(self.memory_caching, CALLBACK.GET_CONCRETE_MEMORY_VALUE)
+
+        self.memory_cache.append({
+                    'start':  self.code_start,
+                    'size':   len(self.code),
+                    'memory': self.code,
+                    'name': "CODE",
+                    'executable': True
+                })
+
+        self.last_inst_type = OPCODE.JMP
+        self.setpc(self.code_start)
+
+    def init_with_binary(self):
+        """Prepare everything before starting emulator"""
 
         Triton = self.triton = TritonContext()
-
-        if self.arch == 'x86':
-            Triton.setArchitecture(ARCH.X86)
-        else:
-            raise UnsupportArchException(self.arch)
+        Triton.setArchitecture(self.arch)
 
         # Define symbolic optimizations
         Triton.enableMode(MODE.ALIGNED_MEMORY, True)
@@ -658,7 +671,7 @@ class Emulator(Basic):
             self.snapshot()
 
         self.load_dump()
-        self.lastInstType = OPCODE.JMP
+        self.last_inst_type = OPCODE.JMP
 
         self.syshook.add_callback("read", self.callback_read)
         self.syshook.add_callback("write", self.callback_write)
@@ -673,17 +686,16 @@ class Emulator(Basic):
          Return:
             If arch is x86, return eax, ebx, ecx, edx, edi, esi, ebp
         """
-        if self.arch == 'x86':
-            eax = self.getreg('eax')
-            ebx = self.getreg('ebx')
-            ecx = self.getreg('ecx')
-            edx = self.getreg('edx')
-            esi = self.getreg('esi')
-            edi = self.getreg('edi')
-            ebp = self.getreg('ebp')
-            return (eax, ebx, ecx, edx, esi, edi, ebp)
-        else:
-            raise UnsupportArchException(self.arch)
+        if self.arch == ARCH.X86:
+            reg_list = ["eax", "ebx", "ecx", "edx", "esi", "edi", "ebp"]
+        elif self.arch == ARCH.X86_64:
+            reg_list = ["rax", "rbx", "rcx", "rdx", "rdi" "rsi", "r8", "r9",
+                        "r10", "r11", "r12", "r13", "r14", "r15"]
+
+        result = []
+        for reg in reg_list:
+            result.append((reg, self.getreg(reg)))
+        return result
 
     def set_input(self, data):
         """Set input buffer
@@ -759,7 +771,70 @@ class Emulator(Basic):
         inst.setOpcode(bincode)
         inst.setAddress(0)
         self.triton.processing(inst)
-   
+
+    # def patch_repeat_mov(self, instruction):
+    #     if instruction.getType() == OPCODE.MOVSD:
+    #         """
+    #         For unknown reason, triton didn't work when meets instruction
+    #         like "rep mov", So I did some patch by hand
+    #         """
+    #         ecx = self.getreg('ecx')
+    #         if ecx > 0x1000:
+    #             ecx = 0x1000
+    #         self.instrument("push eax")
+    #         log.debug('try to patch "rep movsd"')
+    #         for i in range(ecx):
+    #             gadgets = ["mov eax, dword ptr [esi]",
+    #                         "mov dword ptr [edi], eax",
+    #                         "add esi, 4",
+    #                         "add edi, 4"]
+    #             for gadget in gadgets:
+    #                 self.instrument(gadget)
+    #
+    #         self.instrument("pop eax")
+    #         self.setpc(self.getpc() + instruction.getSize())
+    #
+    #         return self.getpc()
+    #
+    #     elif instruction.getType() == OPCODE.MOVSB:
+    #
+    #         log.debug('try to patch "rep movsb"')
+    #         ecx = self.getreg('ecx')
+    #         if ecx > 0x1000:
+    #             ecx = 0x1000
+    #         self.instrument("push eax")
+    #
+    #         for i in range(ecx):
+    #             gadgets = ["mov al, byte ptr [esi]",
+    #                         "mov byte ptr [edi], al",
+    #                         "add esi, 1",
+    #                         "add edi, 1"]
+    #             for gadget in gadgets:
+    #                 self.instrument(gadget)
+    #
+    #         self.instrument("pop eax")
+    #         self.setpc(self.getpc() + instruction.getSize())
+    #         return self.getpc()
+
+    def check_dead_loop(self, *args):
+        if self.getpc() == self.last_pc:
+            self.inst_loop += 1
+            """When encounter unsupported instruction, the program might 
+            get stuck in one instruction. """
+            if self.show_inst >= 4096:
+                raise InfinityLoopException(self.arch)
+        else:
+            self.inst_loop = 0
+
+    def add_before_process_callback(self, handler):
+        self.before_process_callbacks.append(handler)
+
+    def add_after_process_callback(self, handler):
+        self.after_process_callbacks.append(handler)
+
+    # def enable_triton_patch(self):
+    #     self.add_before_process_callback(self.patch_repeat_mov)
+
     """
     Process only an instruction
     """
@@ -773,87 +848,25 @@ class Emulator(Basic):
             return 0
         
         pc = self.getpc()
-        self.inst_count += 1
+        opcode = self.get_memory(pc, 16)
 
-        if pc == self.last_pc:
-            self.inst_loop += 1
-            """When encounter unsupported instruction, the 
-            program might get stuck in one instruction.
-            """
-            if self.show_inst >= 1000:
-                raise InfinityLoopException(self.arch)
-        else:
-            self.inst_loop = 0
-
-        opcode = self.getMemory(pc, 16)
-
-        # Create the Triton instruction
-        if hasattr(self, "instruction"):
-            instruction = self.instruction
-        else:
-            instruction = Instruction()
-            self.instruction = instruction
-
+        instruction = Instruction()
         instruction.setOpcode(bytes(opcode))
         instruction.setAddress(pc)
         
-        Triton = self.triton
-        Triton.disassembly(instruction)
-
-        if instruction.getType() == OPCODE.MOVSD: 
-
-            """
-            For unknown reason, triton didn't work when meets instruction 
-            like "rep mov", So I did some patch by hand
-            """
-            ecx = self.getreg('ecx')
-            if ecx > 0x1000:
-                ecx = 0x1000
-            self.instrument("push eax")
-            log.debug('try to patch "rep movsd"')
-            for i in range(ecx):
-                gadgets = ["mov eax, dword ptr [esi]", 
-                            "mov dword ptr [edi], eax", 
-                            "add esi, 4", 
-                            "add edi, 4"]
-                for gadget in gadgets:
-                    self.instrument(gadget)
-
-            self.instrument("pop eax")
-            self.setpc(pc + instruction.getSize())
-
-            return self.getpc()
-
-        elif instruction.getType() == OPCODE.MOVSB:
-
-            log.debug('try to patch "rep movsb"')
-            ecx = self.getreg('ecx')
-            if ecx > 0x1000:
-                ecx = 0x1000
-            self.instrument("push eax")
-
-            for i in range(ecx):
-                gadgets = ["mov al, byte ptr [esi]", 
-                            "mov byte ptr [edi], al", 
-                            "add esi, 1", 
-                            "add edi, 1"]
-                for gadget in gadgets:
-                    self.instrument(gadget)
-
-            self.instrument("pop eax")
-            self.setpc(pc + instruction.getSize())
-            return self.getpc()
+        self.triton.disassembly(instruction)
+        for handler in self.before_process_callbacks:
+            handler(instruction)
 
         # Process
         self.triton.processing(instruction)
         if self.show_inst:
-            print instruction
+            print(instruction)
 
         if instruction.getType() in [OPCODE.SYSENTER, OPCODE.INT]:
 
-            if self.lastInstType not in [OPCODE.SYSENTER, OPCODE.INT] \
+            if self.last_inst_type not in [OPCODE.SYSENTER, OPCODE.INT] \
                     and instruction.getType() in [OPCODE.SYSENTER, OPCODE.INT]:
-
 
                 sysnum, arg1, arg2, arg3, arg4, arg5, arg6 \
                     = self.getSyscallRegs()
@@ -878,19 +891,19 @@ class Emulator(Basic):
         # Deal with instruction exception
         elif instruction.getType() == OPCODE.RET \
                 or instruction.getType() == OPCODE.CALL\
-                or instruction.getType() == OPCODE.JMP: #jmp???
+                or instruction.getType() == OPCODE.JMP:
 
             new_pc = self.getpc()
-            text_start = self.memoryCache[0]['start']
-            text_end = self.memoryCache[0]['start'] + self.memoryCache[0]['size']
+            text_start = self.memory_cache[0]['start']
+            text_end = self.memory_cache[0]['start'] + self.memory_cache[0]['size']
 
-            for m in self.memoryCache:
+            for m in self.memory_cache:
                 if 'vdso' in m['name']:
                     vdso_start = m['start']
                     vdso_end = m['start'] + m['size']
                     break
 
-            if not self.isAddress(new_pc):
+            if not self.is_address(new_pc):
                 raise IllegalPcException(self.arch, new_pc)
 
             if not ((text_start <= new_pc <= text_end) or (vdso_start <= new_pc <= vdso_end)):
@@ -904,29 +917,42 @@ class Emulator(Basic):
 
             new_pc = self.getpc()
             if not self.isAddress(new_pc):
-                self.lastInstType = instruction.getType()
+                self.last_inst_type = instruction.getType()
                 raise IllegalPcException(self.arch, new_pc)
         '''        
         
-        self.lastInstType = instruction.getType()
+        self.last_inst_type = instruction.getType()
         self.last_pc = pc
         pc = self.getpc()
         
         return pc
 
 
-   
-    def test(self):
-        """Ok, everything is prepared, just go"""
-        self.initialize()
+class IllegalPcException(Exception):
+    def __init__(self, arch, pc):
+        if arch == 'x86':
+            Exception.__init__(self, "Eip address [0x%x] is illegal" % pc)
+        else:
+            raise UnsupportedArchException(arch)
 
-        self.log.info("Start emulation")
 
-        pc = self.getpc()
-        self.lastInstType = None
-        
-        while pc:    
-            pc = self.process()
+class IllegalInstException(Exception):
+    def __init__(self, arch, pc):
+        if arch == 'x86':
+            Exception.__init__(self, "Instruction at [0x%x] is illegal" % pc)
+        else:
+            raise UnsupportedArchException(arch)
 
-        self.log.info("Emulation done")
-        return
+
+class InfinityLoopException(Exception):
+    def __init__(self, arch, pc):
+        if arch == 'x86':
+            Exception.__init__(self, "Encounter inifinity instruction at 0x%x" % pc)
+        else:
+            raise UnsupportedArchException(arch)
+
+
+class MemoryAccessException(Exception):
+    def __init__(self, pc, addr):
+        Exception.__init__(self, "Invalid memory [0x%x] access instruction at 0x%x" % (addr, pc))
+

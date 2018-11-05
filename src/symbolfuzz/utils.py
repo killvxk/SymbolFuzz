@@ -2,10 +2,8 @@ import logging
 import hashlib
 
 
-"""
-Define basic exception class
-"""
-class UnsupportArchException(Exception):
+# Define basic exception class
+class UnsupportedArchException(Exception):
     def __init__(self, arch):
         Exception.__init__(self, "Architecture %s is not supported yet" % arch)
 
@@ -14,10 +12,13 @@ class NotImplementedException(Exception):
     def __init__(self, arch):
         Exception.__init__(self, "Sorry, this part is not implemented yet")
 
-##############################################################################
-"""
-Define some basic functions
-"""
+
+class UnknownEmulatorMode(Exception):
+    def __init__(self, arch):
+        Exception.__init__(self, "Unknown emulator mode")
+
+
+# Define some basic functions
 def get_logger(module_name, log_level=logging.DEBUG):
     global gLoglevel
 
@@ -41,7 +42,8 @@ def title(msg, obj=None, length=70, fill='='):
     if obj != None:
         print obj
 
-def memoize(f):
+
+def memorize(f):
     cached = {}
 
     def helper(*args, **kargs):
@@ -53,7 +55,8 @@ def memoize(f):
 
     return helper
 
-@memoize
+
+@memorize
 def md5(stream, is_file=True):
     """ Generate md5 for file or string """
     md5 = hashlib.md5()
@@ -66,10 +69,24 @@ def md5(stream, is_file=True):
     return md5.hexdigest()
 
 
-"""
-Just for local debug
-"""
+def str2int(data):
+    """Try to transform a string to an integer
+
+    Args:
+        data: a string representing a number which might be hex format
+                or metric format
+
+    Returns:
+        an integer
+    """
+    try:
+        return int(data, 16)
+    except ValueError:
+        return int(data, 10)
+
+
 def connectPycharm(ip, port=4444):
+    """ Just for local debug """
     try:
         import sys
         sys.path.append('/data/pydev')

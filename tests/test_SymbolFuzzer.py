@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding=utf-8
 
-from emulator import *
+from symbolfuzz import *
 from pwn import context
 
 binary_dir = str(os.path.join(os.path.dirname(os.path.realpath(__file__)), '../binary/'))

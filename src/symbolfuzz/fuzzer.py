@@ -119,7 +119,8 @@ class Fuzzer(object):
             # data2
             self.seed_tree = {
                 '': {'father': '', 'path': 0},
-                'A': {'father': '', 'path': 0} }
+                'A': {'father': '', 'path': 0}
+            }
             self.atoi_solve = {}
             # data3
             self.seeds = []

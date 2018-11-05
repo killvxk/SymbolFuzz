@@ -3,7 +3,7 @@
 import os
 import nose
 import time
-from emulator import *
+from symbolfuzz import *
 from pwn import context, log
 
 # context.log_level = "DEBUG" 
